@@ -1,8 +1,9 @@
-package optional
+package optional_test
 
 import (
 	"testing"
 
+	"github.com/markphelps/optional"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -13,22 +14,22 @@ func TestOfString(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		want String
+		want optional.String
 	}{
 		{
 			name: "empty string",
 			args: args{s: ""},
-			want: String{string: "", present: true},
+			want: optional.OfString(""),
 		},
 		{
 			name: "non-empty string",
 			args: args{s: "foo"},
-			want: String{string: "foo", present: true},
+			want: optional.OfString("foo"),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := OfString(tt.args.s)
+			got := optional.OfString(tt.args.s)
 			assert.Equal(t, tt.want, got)
 		})
 	}
@@ -36,8 +37,7 @@ func TestOfString(t *testing.T) {
 
 func TestSet(t *testing.T) {
 	type fields struct {
-		string  string
-		present bool
+		s string
 	}
 	type args struct {
 		s string
@@ -59,16 +59,13 @@ func TestSet(t *testing.T) {
 		},
 		{
 			name:   "pre-existing string",
-			fields: fields{string: "foo", present: true},
+			fields: fields{s: "foo"},
 			args:   args{s: "bar"},
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			o := &String{
-				string:  tt.fields.string,
-				present: tt.fields.present,
-			}
+			o := optional.OfString(tt.fields.s)
 			o.Set(tt.args.s)
 			assert.Equal(t, o.String(), tt.args.s)
 			assert.True(t, o.Present())
@@ -78,30 +75,35 @@ func TestSet(t *testing.T) {
 
 func TestPresent(t *testing.T) {
 	type fields struct {
-		string  string
-		present bool
+		s string
 	}
 	tests := []struct {
 		name   string
 		fields fields
 		want   bool
+		zeroed bool
 	}{
+		{
+			name:   "non-existent",
+			want:   false,
+			zeroed: true,
+		},
 		{
 			name:   "empty",
 			fields: fields{},
-			want:   false,
+			want:   true,
 		},
 		{
 			name:   "non-empty",
-			fields: fields{string: "foo", present: true},
+			fields: fields{s: "foo"},
 			want:   true,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			o := &String{
-				string:  tt.fields.string,
-				present: tt.fields.present,
+			var o optional.String
+			if !tt.zeroed {
+				o = optional.OfString(tt.fields.s)
 			}
 			assert.Equal(t, tt.want, o.Present())
 		})
@@ -110,8 +112,7 @@ func TestPresent(t *testing.T) {
 
 func TestOrElse(t *testing.T) {
 	type fields struct {
-		string  string
-		present bool
+		s string
 	}
 	type args struct {
 		s string
@@ -121,25 +122,32 @@ func TestOrElse(t *testing.T) {
 		fields fields
 		args   args
 		want   string
+		zeroed bool
 	}{
+		{
+			name:   "non-existent",
+			args:   args{s: "foo"},
+			want:   "foo",
+			zeroed: true,
+		},
 		{
 			name:   "empty",
 			fields: fields{},
 			args:   args{s: "bar"},
-			want:   "bar",
+			want:   "",
 		},
 		{
 			name:   "non-empty",
-			fields: fields{string: "foo", present: true},
+			fields: fields{s: "foo"},
 			args:   args{s: "bar"},
 			want:   "foo",
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			o := &String{
-				string:  tt.fields.string,
-				present: tt.fields.present,
+			var o optional.String
+			if !tt.zeroed {
+				o = optional.OfString(tt.fields.s)
 			}
 			got := o.OrElse(tt.args.s)
 			assert.Equal(t, tt.want, got)

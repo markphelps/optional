@@ -25,7 +25,6 @@ lint: ## Run all the linters
 		--enable=staticcheck \
 		--enable=gofmt \
 		--enable=goimports \
-		--enable=dupl \
 		--enable=misspell \
 		--enable=errcheck \
 		--enable=vet \
@@ -35,6 +34,10 @@ lint: ## Run all the linters
 
 .PHONY: ci
 ci: lint test ## Run all the tests and code checks
+
+.PHONY: generate
+generate: ## Run go generate
+	go generate
 
 .PHONY: build
 build: ## Build a beta version
