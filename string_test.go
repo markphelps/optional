@@ -7,6 +7,24 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestEmptyString(t *testing.T) {
+	tests := []struct {
+		name string
+		want optional.String
+	}{
+		{
+			name: "empty",
+			want: optional.String{},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := optional.EmptyString()
+			assert.Equal(t, tt.want, got)
+		})
+	}
+}
+
 func TestOfString(t *testing.T) {
 	type args struct {
 		s string
