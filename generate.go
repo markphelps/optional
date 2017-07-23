@@ -17,5 +17,6 @@
 //go:generate go run cmd/optional/main.go -type=float64 -output=Float64
 //go:generate go run cmd/optional/main.go -type=complex64 -output=Complex64
 //go:generate go run cmd/optional/main.go -type=complex128 -output=Complex128
+//go:generate go run cmd/optional/main.go -type=error -output=Error
 
 package optional

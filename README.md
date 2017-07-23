@@ -1,5 +1,7 @@
 # Optional
 
+## Tool
+
 Optional is a tool that generates 'optional' type wrappers around a given type T.
 
 Typically this process would be run using go generate, like this:
@@ -19,6 +21,21 @@ containing a definition of:
 
 The default type is OptionalT or optionalT (depending on if the type is exported)
 and output file is optional_t.go. This can be overridden with the -output flag.
+
+## Library
+
+Optional is also a library that provides optional types for the basic Go types:
+
+* bool
+* byte
+* complex
+* float
+* int
+* rune
+* string
+* uint
+* uintptr
+* error
 
 [![Release](https://img.shields.io/github/release/markphelps/optional.svg?style=flat-square)](https://github.com/markphelps/optional/releases/latest)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
