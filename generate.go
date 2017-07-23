@@ -19,7 +19,3 @@
 //go:generate go run cmd/optional/main.go -type=complex128 -output=Complex128
 
 package optional
-
-//go:generate go run cmd/optional/main.go -type=Foo
-type Foo struct {
-}

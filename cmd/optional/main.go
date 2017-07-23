@@ -2,11 +2,11 @@
 //
 // Typically this process would be run using go generate, like this:
 //
-//	//go:generate optional Foo
+//	//go:generate optional -type=Foo
 //
 // running this command
 //
-//	optional Foo
+//	optional -type=Foo
 //
 // in the same directory will create the file optional_foo.go
 // containing a definition of
@@ -14,9 +14,6 @@
 //	type OptionalFoo struct {
 //		...
 //	}
-//
-// The file is created in the same package and directory as the package that defines T.
-// It has helpful defaults designed for use with go generate.
 //
 // The default type is OptionalT or optionalT (depending on if the type is exported)
 // and output file is optional_t.go. This can be overridden with the -output flag.
@@ -107,7 +104,7 @@ func main() {
 		os.Exit(2)
 	}
 
-	packageName, err := packageName()
+	pkg, err := build.Default.ImportDir(".", 0)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -139,7 +136,7 @@ func main() {
 		OutputName  string
 	}{
 		time.Now().UTC(),
-		packageName,
+		pkg.Name,
 		*typeName,
 		outputName,
 	}
@@ -160,12 +157,4 @@ func main() {
 	if err != nil {
 		log.Fatalf("writing output: %s", err)
 	}
-}
-
-func packageName() (string, error) {
-	pkg, err := build.Default.ImportDir(".", 0)
-	if err != nil {
-		return "", err
-	}
-	return pkg.Name, nil
 }
