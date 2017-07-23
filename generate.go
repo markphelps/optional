@@ -1,19 +1,25 @@
-//go:generate go run cmd/optional/main.go bool Bool
-//go:generate go run cmd/optional/main.go string String
-//go:generate go run cmd/optional/main.go int Int
-//go:generate go run cmd/optional/main.go int8 Int8
-//go:generate go run cmd/optional/main.go int16 Int16
-//go:generate go run cmd/optional/main.go int32 Int32
-//go:generate go run cmd/optional/main.go int64 Int64
-//go:generate go run cmd/optional/main.go uint Uint
-//go:generate go run cmd/optional/main.go uint8 Uint8
-//go:generate go run cmd/optional/main.go uint16 Uint16
-//go:generate go run cmd/optional/main.go uint32 Uint32
-//go:generate go run cmd/optional/main.go uint64 Uint64
-//go:generate go run cmd/optional/main.go uintptr Uintptr
-//go:generate go run cmd/optional/main.go byte Byte
-//go:generate go run cmd/optional/main.go rune Rune
-//go:generate go run cmd/optional/main.go float32 Float32
-//go:generate go run cmd/optional/main.go float64 Float64
-//go:generate go run cmd/optional/main.go complex64 Complex64
-//go:generate go run cmd/optional/main.go complex128 Complex128
+//go:generate go run cmd/optional/main.go -type=bool -output=Bool
+//go:generate go run cmd/optional/main.go -type=string -output=String
+//go:generate go run cmd/optional/main.go -type=int -output=Int
+//go:generate go run cmd/optional/main.go -type=int8 -output=Int8
+//go:generate go run cmd/optional/main.go -type=int16 -output=Int16
+//go:generate go run cmd/optional/main.go -type=int32 -output=Int32
+//go:generate go run cmd/optional/main.go -type=int64 -output=Int64
+//go:generate go run cmd/optional/main.go -type=uint -output=Uint
+//go:generate go run cmd/optional/main.go -type=uint8 -output=Uint8
+//go:generate go run cmd/optional/main.go -type=uint16 -output=Uint16
+//go:generate go run cmd/optional/main.go -type=uint32 -output=Uint32
+//go:generate go run cmd/optional/main.go -type=uint64 -output=Uint64
+//go:generate go run cmd/optional/main.go -type=uintptr -output=Uintptr
+//go:generate go run cmd/optional/main.go -type=byte -output=Byte
+//go:generate go run cmd/optional/main.go -type=rune -output=Rune
+//go:generate go run cmd/optional/main.go -type=float32 -output=Float32
+//go:generate go run cmd/optional/main.go -type=float64 -output=Float64
+//go:generate go run cmd/optional/main.go -type=complex64 -output=Complex64
+//go:generate go run cmd/optional/main.go -type=complex128 -output=Complex128
+
+package optional
+
+//go:generate go run cmd/optional/main.go -type=Foo
+type Foo struct {
+}
