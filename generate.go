@@ -17,13 +17,3 @@
 //go:generate go run cmd/optional/main.go float64 Float64
 //go:generate go run cmd/optional/main.go complex64 Complex64
 //go:generate go run cmd/optional/main.go complex128 Complex128
-
-package optional
-
-// //go:generate go run cmd/optional/main.go Foo
-// type Foo struct {
-// }
-
-// //go:generate go run cmd/optional/main.go bar
-// type bar struct {
-// }
