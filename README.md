@@ -44,6 +44,8 @@ if test.schwifty.Present() {
 }
 ```
 
+I'm sure you can use it for other stuff too!
+
 ## Inspiration
 
 * Java [Optional](https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html)
