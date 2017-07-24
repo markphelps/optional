@@ -46,7 +46,7 @@ if test.schwifty.Present() {
 
 ## Inspiration
 
-* Java [Optional](https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html) type.
+* Java [Optional](https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html)
 * [https://github.com/leighmcculloch/go-optional](https://github.com/leighmcculloch/go-optional)
 
 ## Install
