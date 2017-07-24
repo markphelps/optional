@@ -35,9 +35,6 @@ import (
 )
 
 var (
-	typeName = flag.String("type", "", "type name; must be set")
-	output   = flag.String("output", "", "output type and file name; default [o|O]ptional<type> and srcdir/optional_<type>.go")
-
 	funcMap = template.FuncMap{
 		"title": strings.Title,
 		"first": func(s string) string {
@@ -60,12 +57,12 @@ type {{ .OutputName }} struct {
 	present bool
 }
 
-// Empty{{ .OutputName | title }} returns an empty optional.{{ .OutputName }}
+// Empty{{ .OutputName | title }} returns an empty {{ .PackageName }}.{{ .OutputName }}
 func Empty{{ .OutputName | title }}() {{ .OutputName }} {
 	return {{ .OutputName }}{}
 }
 
-// Of{{ .TypeName | title }} creates an optional.{{ .OutputName }} from a {{ .TypeName }}
+// Of{{ .TypeName | title }} creates a {{ .PackageName }}.{{ .OutputName }} from a {{ .TypeName }}
 func Of{{ .TypeName | title }}({{ .TypeName | first }} {{ .TypeName }}) {{ .OutputName }} {
 	return {{ .OutputName }}{ {{ .TypeName | unexport }}: {{ .TypeName | first }}, present: true}
 }
@@ -94,9 +91,48 @@ func (o *{{ .OutputName }}) OrElse({{ .TypeName | first }} {{ .TypeName }}) {{ .
 	return {{ .TypeName | first }}
 }`
 
+type generator struct {
+	packageName string
+	outputName  string
+	typeName    string
+}
+
+func (g *generator) generate() ([]byte, error) {
+	t := template.Must(template.New("").Funcs(funcMap).Parse(tmpl))
+
+	data := struct {
+		Timestamp   time.Time
+		PackageName string
+		TypeName    string
+		OutputName  string
+	}{
+		time.Now().UTC(),
+		g.packageName,
+		g.typeName,
+		g.outputName,
+	}
+
+	var buf bytes.Buffer
+
+	err := t.Execute(&buf, data)
+	if err != nil {
+		return nil, err
+	}
+
+	src, err := format.Source(buf.Bytes())
+	if err != nil {
+		return nil, err
+	}
+	return src, nil
+}
+
 func main() {
 	log.SetFlags(0)
 	log.SetPrefix("optional: ")
+
+	typeName := flag.String("type", "", "type name; must be set")
+	outputName := flag.String("output", "", "output type and file name; default [o|O]ptional<type> and srcdir/optional_<type>.go")
+
 	flag.Parse()
 
 	if len(*typeName) == 0 {
@@ -109,51 +145,37 @@ func main() {
 		log.Fatal(err)
 	}
 
-	var outputName string
-	var fileName string
+	var (
+		filename string
+		g        generator
+	)
 
-	exported := strings.Title(*typeName) == *typeName
+	g.typeName = *typeName
+	g.packageName = pkg.Name
 
-	if len(*output) == 0 {
+	if len(*outputName) == 0 {
 		// no output specified, use default optional_<type>
+
+		// TODO: may not be the most reliable method
+		exported := strings.Title(g.typeName) == g.typeName
+
 		if exported {
-			outputName = "Optional" + strings.Title(*typeName)
+			g.outputName = "Optional" + strings.Title(g.typeName)
 		} else {
-			outputName = "optional" + strings.Title(*typeName)
+			g.outputName = "optional" + strings.Title(g.typeName)
 		}
-		fileName = fmt.Sprintf("optional_%s.go", strings.ToLower(*typeName))
+		filename = fmt.Sprintf("optional_%s.go", strings.ToLower(g.typeName))
 	} else {
-		outputName = *output
-		fileName = strings.ToLower(outputName + ".go")
+		g.outputName = *outputName
+		filename = strings.ToLower(g.outputName + ".go")
 	}
 
-	t := template.Must(template.New("").Funcs(funcMap).Parse(tmpl))
-
-	data := struct {
-		Timestamp   time.Time
-		PackageName string
-		TypeName    string
-		OutputName  string
-	}{
-		time.Now().UTC(),
-		pkg.Name,
-		*typeName,
-		outputName,
-	}
-
-	var buf bytes.Buffer
-
-	err = t.Execute(&buf, data)
+	src, err := g.generate()
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	src, err := format.Source(buf.Bytes())
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	err = ioutil.WriteFile(fileName, src, 0644)
+	err = ioutil.WriteFile(filename, src, 0644)
 	if err != nil {
 		log.Fatalf("writing output: %s", err)
 	}
