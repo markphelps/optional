@@ -25,8 +25,8 @@ func (o *OptionalFoo) Set(f Foo) {
 	o.present = true
 }
 
-// Foo returns the Foo value
-func (o *OptionalFoo) Foo() Foo {
+// Get returns the Foo value
+func (o *OptionalFoo) Get() Foo {
 	return o.foo
 }
 

@@ -6,6 +6,49 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/markphelps/optional?style=flat-square)](https://goreportcard.com/report/github.com/markphelps/optional)
 [![SayThanks.io](https://img.shields.io/badge/SayThanks.io-%E2%98%BC-1EAEDB.svg?style=flat-square)](https://saythanks.io/to/markphelps)
 
+## Motivation
+
+Ever had to write a test where you want to assert something only if a value is present?
+
+```go
+tests :=  []struct {
+  schwifty string
+  schwiftyPresent bool
+} {
+    { "wubba dub dub", true },
+    { "", false },
+}
+
+...
+
+if test.schwiftyPresent {
+  assert.Equal(t, test.schwifty, schwiftyValue)
+}
+```
+
+Now you can simplify all that with `optional` types:
+
+```go
+tests :=  []struct {
+  schwifty optional.String
+} {
+    { optional.OfString("wubba dub dub") },
+    { optional.EmptyString() },
+  }
+}
+
+...
+
+if test.schwifty.Present() {
+  assert.Equal(t, test.schwifty.Get(), schwiftyValue)
+}
+```
+
+## Inspiration
+
+* Java [Optional](https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html) type.
+* [https://github.com/leighmcculloch/go-optional](https://github.com/leighmcculloch/go-optional)
+
 ## Install
 
 `go get -u github.com/markphelps/optional/cmd/optional`

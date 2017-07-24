@@ -25,8 +25,8 @@ func (o *String) Set(s string) {
 	o.present = true
 }
 
-// String returns the string value
-func (o *String) String() string {
+// Get returns the string value
+func (o *String) Get() string {
 	return o.string
 }
 

@@ -73,8 +73,8 @@ func (o *{{ .OutputName }}) Set({{ .TypeName | first }} {{ .TypeName }}) {
 	o.present = true
 }
 
-// {{ .TypeName | title }} returns the {{ .TypeName }} value
-func (o *{{ .OutputName }}) {{ .TypeName | title }}() {{ .TypeName }} {
+// Get returns the {{ .TypeName }} value
+func (o *{{ .OutputName }}) Get() {{ .TypeName }} {
 	return o.{{ .TypeName | unexport }}
 }
 

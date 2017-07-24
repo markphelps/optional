@@ -25,8 +25,8 @@ func (o *optionalBar) Set(b bar) {
 	o.present = true
 }
 
-// Bar returns the bar value
-func (o *optionalBar) Bar() bar {
+// Get returns the bar value
+func (o *optionalBar) Get() bar {
 	return o.bar
 }
 
