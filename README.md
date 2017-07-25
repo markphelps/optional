@@ -1,6 +1,5 @@
 # Optional
 
-[![Codeship Status for markphelps/optional](https://app.codeship.com/projects/165d89d0-5302-0135-5b8f-4247dd4ea899/status?branch=master)](https://app.codeship.com/projects/234852)
 [![Release](https://img.shields.io/github/release/markphelps/optional.svg?style=flat-square)](https://github.com/markphelps/optional/releases/latest)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Go Doc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](http://godoc.org/github.com/markphelps/optional)
