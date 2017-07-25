@@ -89,6 +89,13 @@ func (o *{{ .OutputName }}) OrElse({{ .TypeName | first }} {{ .TypeName }}) {{ .
 		return o.{{ .TypeName | unexport}}
 	}
 	return {{ .TypeName | first }}
+}
+
+// If calls the function f with the value if the value is present
+func (o *{{ .OutputName }}) If(f func({{ .TypeName | first }} {{ .TypeName }})) {
+	if o.present {
+		f(o.{{ .TypeName | unexport}})
+	}
 }`
 
 type generator struct {

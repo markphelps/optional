@@ -43,3 +43,23 @@ func Example_orElse() {
 	// bar
 	// not present
 }
+
+func Example_if() {
+	values := []optional.String{
+		optional.OfString("foo"),
+		optional.OfString(""),
+		optional.OfString("bar"),
+		optional.EmptyString(),
+	}
+
+	for _, v := range values {
+		v.If(func(s string) {
+			fmt.Println("present")
+		})
+	}
+
+	// Output:
+	// present
+	// present
+	// present
+}

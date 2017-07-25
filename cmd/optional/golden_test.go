@@ -3,11 +3,15 @@ package main
 import (
 	"bufio"
 	"bytes"
+	"flag"
 	"io/ioutil"
+	"log"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 )
+
+var updateFlag = flag.Bool("update", false, "Update the golden files.")
 
 type testcase struct {
 	name        string
@@ -34,12 +38,20 @@ func TestGolden(t *testing.T) {
 				typeName:    test.typeName,
 			}
 
-			input, err := ioutil.ReadFile("./testdata/" + test.filename)
+			output, err := g.generate()
 			if err != nil {
 				t.Error(err)
 			}
 
-			output, err := g.generate()
+			if *updateFlag {
+				err = ioutil.WriteFile("./testdata/"+test.filename, output, 0644)
+				if err != nil {
+					log.Fatalf("writing output: %s", err)
+				}
+				log.Printf("updated goldenfile: %s", "./testdata/"+test.filename)
+			}
+
+			input, err := ioutil.ReadFile("./testdata/" + test.filename)
 			if err != nil {
 				t.Error(err)
 			}
