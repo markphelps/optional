@@ -6,7 +6,7 @@ import (
 	"github.com/markphelps/optional"
 )
 
-func Example_Get() {
+func Example_get() {
 	values := []optional.String{
 		optional.OfString("foo"),
 		optional.OfString(""),
@@ -25,7 +25,7 @@ func Example_Get() {
 	// bar
 }
 
-func Example_OrElse() {
+func Example_orElse() {
 	values := []optional.String{
 		optional.OfString("foo"),
 		optional.OfString(""),

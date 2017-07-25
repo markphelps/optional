@@ -62,8 +62,6 @@ if test.catchPhrase.Present() {
 
 ### Usage
 
-Optional is a tool that generates 'optional' type wrappers around a given type T.
-
 Typically this process would be run using go generate, like this:
 
 	//go:generate optional -type=Foo
