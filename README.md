@@ -12,8 +12,8 @@ Ever had to write a test where you want to assert something only if a value is p
 
 ```go
 tests :=  []struct {
-  schwifty string
-  schwiftyPresent bool
+  catchPhrase string
+  catchPhrasePresent bool
 } {
     { "wubba dub dub", true },
     { "", false },
@@ -21,8 +21,8 @@ tests :=  []struct {
 
 ...
 
-if test.schwiftyPresent {
-  assert.Equal(t, test.schwifty, schwiftyValue)
+if test.catchPhrasePresent {
+  assert.Equal(t, test.catchPhrase, catchPhrase)
 }
 ```
 
@@ -30,7 +30,7 @@ Now you can simplify all that with `optional` types:
 
 ```go
 tests :=  []struct {
-  schwifty optional.String
+  catchPhrase optional.String
 } {
     { optional.OfString("wubba dub dub") },
     { optional.EmptyString() },
@@ -39,12 +39,10 @@ tests :=  []struct {
 
 ...
 
-if test.schwifty.Present() {
-  assert.Equal(t, test.schwifty.Get(), schwiftyValue)
+if test.catchPhrase.Present() {
+  assert.Equal(t, test.catchPhrase.Get(), catchPhrase)
 }
 ```
-
-I'm sure you can use it for other stuff too!
 
 ## Inspiration
 
@@ -81,23 +79,23 @@ and output file is optional_t.go. This can be overridden with the -output flag.
 
 Optional is also a library that provides optional types for the basic Go types:
 
-* bool
-* byte
-* complex128
-* complex64
-* float32
-* float64
-* int
-* int16
-* int32
-* int64
-* int8
-* rune
-* string
-* uint
-* uint16
-* uint32
-* uint64
-* uint8
-* uintptr
-* error
+* [bool](bool.go)
+* [byte](byte.go)
+* [complex128](complex128.go)
+* [complex64](complex64.go)
+* [float32](float32.go)
+* [float64](float64.go)
+* [int](int.go)
+* [int16](int16.go)
+* [int32](int32.go)
+* [int64](int64.go)
+* [int8](int8.go)
+* [rune](rune.go)
+* [string](string.go)
+* [uint](uint.go)
+* [uint16](uint16.go)
+* [uint32](uint32.go)
+* [uint64](uint64.go)
+* [uint8](uint8.go)
+* [uintptr](uintptr.go)
+* [error](error.go)
