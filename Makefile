@@ -4,6 +4,9 @@ setup: ## Install all the build and lint dependencies
 	go get -u github.com/alecthomas/gometalinter
 	go get -u golang.org/x/tools/cmd/cover
 	gometalinter --install --update
+
+.PHONE: dep
+dep: ## Install all import dependencies
 	dep ensure
 
 .PHONY: test
