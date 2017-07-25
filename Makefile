@@ -7,7 +7,7 @@ setup: ## Install all the build and lint dependencies
 
 .PHONE: dep
 dep: ## Install all import dependencies
-	dep ensure
+	dep ensure -v
 
 .PHONY: test
 test: ## Run all the tests
