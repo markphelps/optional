@@ -6,6 +6,10 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/markphelps/optional?style=flat-square)](https://goreportcard.com/report/github.com/markphelps/optional)
 [![SayThanks.io](https://img.shields.io/badge/SayThanks.io-%E2%98%BC-1EAEDB.svg?style=flat-square)](https://saythanks.io/to/markphelps)
 
+Optional is a tool that generates 'optional' type wrappers around a given type T.
+
+It is also a library that provides optional types for the primitive Go types.
+
 ## Motivation
 
 Ever had to write a test where you want to assert something only if a value is present?
@@ -48,12 +52,15 @@ if test.catchPhrase.Present() {
 
 * Java [Optional](https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html)
 * [https://github.com/leighmcculloch/go-optional](https://github.com/leighmcculloch/go-optional)
+* [https://github.com/golang/go/issues/7054](https://github.com/golang/go/issues/7054)
 
-## Install
+## Tool
+
+### Install
 
 `go get -u github.com/markphelps/optional/cmd/optional`
 
-## Usage
+### Usage
 
 Optional is a tool that generates 'optional' type wrappers around a given type T.
 
@@ -77,8 +84,6 @@ and output file is optional_t.go. This can be overridden with the -output flag.
 
 ## Library
 
-Optional is also a library that provides optional types for the basic Go types:
-
 * [bool](bool.go)
 * [byte](byte.go)
 * [complex128](complex128.go)
@@ -99,3 +104,32 @@ Optional is also a library that provides optional types for the basic Go types:
 * [uint8](uint8.go)
 * [uintptr](uintptr.go)
 * [error](error.go)
+
+### Usage
+
+```go
+import (
+	"fmt"
+
+	"github.com/markphelps/optional"
+)
+
+s := optional.OfString("foo")
+
+if s.Present() {
+  fmt.Println(s.Get())
+}
+
+t := optional.EmptyString()
+fmt.Println(t.OrElse("bar"))
+```
+
+See [example_test.go](example_test.go) and the [documentation](http://godoc.org/github.com/markphelps/optional) for more usage.
+
+## Contributing
+
+1. Fork it (https://github.com/markphelps/optional/fork)
+1. Create your feature branch (`git checkout -b my-new-feature`)
+1. Commit your changes (`git commit -am 'Add some feature'`)
+1. Push to the branch (`git push origin my-new-feature`)
+1. Create a new Pull Request
