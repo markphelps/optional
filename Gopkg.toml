@@ -1,2 +1,2 @@
 [[constraint]]
-  name = "github.com/stretchr/testify/assert"
+  name = "github.com/stretchr/testify"
