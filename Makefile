@@ -45,7 +45,7 @@ generate: ## Run go generate
 	go generate
 
 .PHONY: build
-build: ## Build a beta version
+build: ## Build
 	go build -o bin/optional ./cmd/optional/main.go
 
 # Absolutely awesome: http://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
