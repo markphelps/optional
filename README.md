@@ -26,7 +26,7 @@ tests :=  []struct {
 ...
 
 if test.catchPhrasePresent {
-  assert.Equal(t, test.catchPhrase, catchPhrase)
+  assert.Equal(t, catchPhrase, test.catchPhrase)
 }
 ```
 
@@ -43,9 +43,9 @@ tests :=  []struct {
 
 ...
 
-if test.catchPhrase.Present() {
-  assert.Equal(t, test.catchPhrase.Get(), catchPhrase)
-}
+test.catchPhrase.If(func(s string) {
+    assert.Equal(t, catchPhrase, s)
+})
 ```
 
 ## Inspiration
