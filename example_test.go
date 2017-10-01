@@ -8,9 +8,9 @@ import (
 
 func Example_get() {
 	values := []optional.String{
-		optional.OfString("foo"),
-		optional.OfString(""),
-		optional.OfString("bar"),
+		optional.NewString("foo"),
+		optional.NewString(""),
+		optional.NewString("bar"),
 		{},
 	}
 
@@ -22,6 +22,7 @@ func Example_get() {
 			}
 		}
 	}
+
 	// Output:
 	// foo
 	//
@@ -30,9 +31,9 @@ func Example_get() {
 
 func Example_orElse() {
 	values := []optional.String{
-		optional.OfString("foo"),
-		optional.OfString(""),
-		optional.OfString("bar"),
+		optional.NewString("foo"),
+		optional.NewString(""),
+		optional.NewString("bar"),
 		{},
 	}
 
@@ -49,9 +50,9 @@ func Example_orElse() {
 
 func Example_if() {
 	values := []optional.String{
-		optional.OfString("foo"),
-		optional.OfString(""),
-		optional.OfString("bar"),
+		optional.NewString("foo"),
+		optional.NewString(""),
+		optional.NewString("bar"),
 		{},
 	}
 

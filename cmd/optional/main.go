@@ -53,8 +53,8 @@ type {{ .OutputName }} struct {
 	value *{{ .TypeName }}
 }
 
-// Of{{ .OutputName }} creates a optional.{{ .OutputName }} from a {{ .TypeName }}
-func Of{{ .OutputName }}(v {{ .TypeName }}) {{ .OutputName }} {
+// New{{ .OutputName }} creates a optional.{{ .OutputName }} from a {{ .TypeName }}
+func New{{ .OutputName }}(v {{ .TypeName }}) {{ .OutputName }} {
 	return {{ .OutputName }}{&v}
 }
 
