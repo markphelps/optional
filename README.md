@@ -16,17 +16,17 @@ Ever had to write a test where you want to assert something only if a value is p
 
 ```go
 tests :=  []struct {
-  catchPhrase string
-  catchPhrasePresent bool
+  data string
+  dataPresent bool
 } {
-    { "wubba dub dub", true },
+    { "YOLO kombucha slow-carb wayfarers fixie", true },
     { "", false },
 }
 
 ...
 
-if test.catchPhrasePresent {
-  assert.Equal(t, catchPhrase, test.catchPhrase)
+if test.dataPresent {
+  assert.Equal(t, hipsterism, test.data)
 }
 ```
 
@@ -34,17 +34,17 @@ Now you can simplify all that with `optional` types:
 
 ```go
 tests :=  []struct {
-  catchPhrase optional.String
+  hipster optional.String
 } {
-    { optional.OfString("wubba dub dub") },
-    { optional.EmptyString() },
+    { optional.OfString("viral narwhal etsy twee VHS") },
+    { optional.String{} },
   }
 }
 
 ...
 
-test.catchPhrase.If(func(s string) {
-    assert.Equal(t, catchPhrase, s)
+test.hipster.If(func(s string) {
+    assert.Equal(t, hipsterism, s)
 })
 ```
 
@@ -64,18 +64,24 @@ test.catchPhrase.If(func(s string) {
 
 Typically this process would be run using go generate, like this:
 
-	//go:generate optional -type=Foo
+```go
+//go:generate optional -type=Foo
+```
 
 running this command:
 
-	optional -type=Foo
+```bash
+optional -type=Foo
+```
 
 in the same directory will create the file optional_foo.go
 containing a definition of:
 
-	type OptionalFoo struct {
-		...
-	}
+```go
+type OptionalFoo struct {
+  ...
+}
+```
 
 The default type is OptionalT or optionalT (depending on if the type is exported)
 and output file is optional_t.go. This can be overridden with the -output flag.
@@ -115,10 +121,11 @@ import (
 s := optional.OfString("foo")
 
 if s.Present() {
-  fmt.Println(s.Get())
+  value, _ := s.Get()
+  fmt.Println(value)
 }
 
-t := optional.EmptyString()
+t := optional.String{}
 fmt.Println(t.OrElse("bar"))
 ```
 
@@ -126,7 +133,7 @@ See [example_test.go](example_test.go) and the [documentation](http://godoc.org/
 
 ## Contributing
 
-1. Fork it (https://github.com/markphelps/optional/fork)
+1. [Fork it](https://github.com/markphelps/optional/fork)
 1. Create your feature branch (`git checkout -b my-new-feature`)
 1. Commit your changes (`git commit -am 'Add some feature'`)
 1. Push to the branch (`git push origin my-new-feature`)

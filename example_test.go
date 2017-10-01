@@ -11,12 +11,15 @@ func Example_get() {
 		optional.OfString("foo"),
 		optional.OfString(""),
 		optional.OfString("bar"),
-		optional.EmptyString(),
+		{},
 	}
 
 	for _, v := range values {
 		if v.Present() {
-			fmt.Println(v.Get())
+			value, err := v.Get()
+			if err == nil {
+				fmt.Println(value)
+			}
 		}
 	}
 	// Output:
@@ -30,7 +33,7 @@ func Example_orElse() {
 		optional.OfString("foo"),
 		optional.OfString(""),
 		optional.OfString("bar"),
-		optional.EmptyString(),
+		{},
 	}
 
 	for _, v := range values {
@@ -49,7 +52,7 @@ func Example_if() {
 		optional.OfString("foo"),
 		optional.OfString(""),
 		optional.OfString("bar"),
-		optional.EmptyString(),
+		{},
 	}
 
 	for _, v := range values {
