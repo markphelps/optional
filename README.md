@@ -36,7 +36,7 @@ Now you can simplify all that with `optional` types:
 tests :=  []struct {
   hipster optional.String
 } {
-    { optional.OfString("viral narwhal etsy twee VHS") },
+    { optional.NewString("viral narwhal etsy twee VHS") },
     { optional.String{} },
   }
 }
@@ -118,7 +118,7 @@ import (
 	"github.com/markphelps/optional"
 )
 
-s := optional.OfString("foo")
+s := optional.NewString("foo")
 
 if s.Present() {
   value, _ := s.Get()
