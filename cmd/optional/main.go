@@ -172,8 +172,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	err = ioutil.WriteFile(filename, src, 0644)
-	if err != nil {
+	if err = ioutil.WriteFile(filename, src, 0644); err != nil {
 		log.Fatalf("writing output: %s", err)
 	}
 }
