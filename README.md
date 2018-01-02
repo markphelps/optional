@@ -34,7 +34,7 @@ Now you can simplify all that with `optional` types:
 
 ```go
 tests :=  []struct {
-  hipster optional.String
+  data optional.String
 } {
     { optional.NewString("viral narwhal etsy twee VHS") },
     { optional.String{} },
@@ -43,7 +43,7 @@ tests :=  []struct {
 
 ...
 
-test.hipster.If(func(s string) {
+test.data.If(func(s string) {
     assert.Equal(t, hipsterism, s)
 })
 ```
