@@ -1,12 +1,13 @@
 package optional_test
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/markphelps/optional"
 )
 
-func Example_get() {
+func Example_Get() {
 	values := []optional.String{
 		optional.NewString("foo"),
 		optional.NewString(""),
@@ -29,7 +30,7 @@ func Example_get() {
 	// bar
 }
 
-func Example_orElse() {
+func Example_OrElse() {
 	values := []optional.String{
 		optional.NewString("foo"),
 		optional.NewString(""),
@@ -48,7 +49,7 @@ func Example_orElse() {
 	// not present
 }
 
-func Example_if() {
+func Example_If() {
 	values := []optional.String{
 		optional.NewString("foo"),
 		optional.NewString(""),
@@ -66,4 +67,59 @@ func Example_if() {
 	// present
 	// present
 	// present
+}
+
+func Example_MarshalJSON() {
+	var values = []struct {
+		Field optional.String `json:"field,omitempty"`
+	}{
+		{
+			Field: optional.NewString("foo"),
+		},
+		{
+			Field: optional.NewString(""),
+		},
+		{
+			Field: optional.NewString("bar"),
+		},
+		{},
+	}
+
+	for _, v := range values {
+		out, _ := json.Marshal(v)
+		fmt.Println(string(out))
+	}
+
+	// Output:
+	// {"field":"foo"}
+	// {"field":""}
+	// {"field":"bar"}
+}
+
+func Example_UnmarshalJSON() {
+	var values = []string{
+		`{"field":"foo"}`,
+		`{"field":""}`,
+		`{"field":"bar"}`,
+		"{}",
+	}
+
+	for _, v := range values {
+		var o = &struct {
+			Field optional.String `json:"field,omitempty"`
+		}{}
+
+		if err := json.Unmarshal([]byte(v), o); err != nil {
+			fmt.Println(err)
+		}
+
+		o.Field.If(func(s string) {
+			fmt.Println(s)
+		})
+	}
+
+	// Output:
+	// foo
+	//
+	// bar
 }
