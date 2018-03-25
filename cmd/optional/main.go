@@ -132,61 +132,61 @@ import (
 
 // {{ .OutputName }} is an optional {{ .TypeName }}
 type {{ .OutputName }} struct {
-	value *{{ .TypeName }}
+    value *{{ .TypeName }}
 }
 
 // New{{ .OutputName }} creates a optional.{{ .OutputName }} from a {{ .TypeName }}
 func New{{ .OutputName }}(v {{ .TypeName }}) {{ .OutputName }} {
-	return {{ .OutputName }}{&v}
+    return {{ .OutputName }}{&v}
 }
 
 // Set sets the {{ .TypeName }} value
 func ({{ .VariableName }} {{ .OutputName }}) Set(v {{ .TypeName }}) {
-	{{ .VariableName }}.value = &v
+    {{ .VariableName }}.value = &v
 }
 
 // Get returns the {{ .TypeName }} value or an error if not present
 func ({{ .VariableName }} {{ .OutputName }}) Get() ({{ .TypeName }}, error) {
-	if !{{ .VariableName }}.Present() {
-		return *{{ .VariableName }}.value, errors.New("value not present")
-	}
-	return *{{ .VariableName }}.value, nil
+    if !{{ .VariableName }}.Present() {
+        return *{{ .VariableName }}.value, errors.New("value not present")
+    }
+    return *{{ .VariableName }}.value, nil
 }
 
 // Present returns whether or not the value is present
 func ({{ .VariableName }} {{ .OutputName }}) Present() bool {
-	return {{ .VariableName }}.value != nil
+    return {{ .VariableName }}.value != nil
 }
 
 // OrElse returns the {{ .TypeName }} value or a default value if the value is not present
 func ({{ .VariableName }} {{ .OutputName }}) OrElse(v {{ .TypeName }}) {{ .TypeName }} {
-	if {{ .VariableName }}.Present() {
-		return *{{ .VariableName }}.value
-	}
-	return v
+    if {{ .VariableName }}.Present() {
+        return *{{ .VariableName }}.value
+    }
+    return v
 }
 
 // If calls the function f with the value if the value is present
 func ({{ .VariableName }} {{ .OutputName }}) If(fn func({{ .TypeName }})) {
-	if {{ .VariableName }}.Present() {
-		fn(*{{ .VariableName }}.value)
-	}
+    if {{ .VariableName }}.Present() {
+        fn(*{{ .VariableName }}.value)
+    }
 }
 
 func ({{ .VariableName }} {{ .OutputName }}) MarshalJSON() ([]byte, error) {
-	if {{ .VariableName }}.Present() {
-		return json.Marshal({{ .VariableName }}.value)
-	}
-	return nil, nil
+    if {{ .VariableName }}.Present() {
+        return json.Marshal({{ .VariableName }}.value)
+    }
+    return nil, nil
 }
 
 func ({{ .VariableName }} *{{ .OutputName }}) UnmarshalJSON(data []byte) error {
-	if len(data) < 1 {
-		{{ .VariableName }}.value = nil
-		return nil
-	}
+    if len(data) < 1 {
+        {{ .VariableName }}.value = nil
+        return nil
+    }
 
-	{{ .VariableName }}.value = new({{ .TypeName }})
-	return json.Unmarshal(data, {{ .VariableName }}.value)
+    {{ .VariableName }}.value = new({{ .TypeName }})
+    return json.Unmarshal(data, {{ .VariableName }}.value)
 }
 `

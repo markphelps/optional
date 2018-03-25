@@ -7,7 +7,7 @@ import (
 	"github.com/markphelps/optional"
 )
 
-func Example_Get() {
+func Example_get() {
 	values := []optional.String{
 		optional.NewString("foo"),
 		optional.NewString(""),
@@ -30,7 +30,7 @@ func Example_Get() {
 	// bar
 }
 
-func Example_OrElse() {
+func Example_orElse() {
 	values := []optional.String{
 		optional.NewString("foo"),
 		optional.NewString(""),
@@ -49,7 +49,7 @@ func Example_OrElse() {
 	// not present
 }
 
-func Example_If() {
+func Example_if() {
 	values := []optional.String{
 		optional.NewString("foo"),
 		optional.NewString(""),
@@ -69,7 +69,7 @@ func Example_If() {
 	// present
 }
 
-func Example_MarshalJSON() {
+func Example_marshalJSON() {
 	var values = []struct {
 		Field optional.String `json:"field,omitempty"`
 	}{
@@ -96,7 +96,7 @@ func Example_MarshalJSON() {
 	// {"field":"bar"}
 }
 
-func Example_UnmarshalJSON() {
+func Example_unmarshalJSON() {
 	var values = []string{
 		`{"field":"foo"}`,
 		`{"field":""}`,
