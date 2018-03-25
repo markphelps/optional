@@ -1,6 +1,5 @@
 language: go
-  go:
-    - "1.10"
+  go: "1.10"
 
 install: make setup
 script: make ci
