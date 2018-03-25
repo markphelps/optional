@@ -3,7 +3,7 @@ setup: ## Install all the build and lint dependencies
 	go get -u github.com/golang/dep/cmd/dep
 	go get -u github.com/alecthomas/gometalinter
 	go get -u golang.org/x/tools/cmd/cover
-	gometalinter --install --update
+	gometalinter --install
 
 .PHONY: dep
 dep: ## Install all import dependencies

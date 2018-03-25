@@ -1,5 +1,6 @@
 # Optional
 
+[![Build Status](https://travis-ci.org/markphelps/optional.svg?branch=master)](https://travis-ci.org/markphelps/optional)
 [![Release](https://img.shields.io/github/release/markphelps/optional.svg?style=flat-square)](https://github.com/markphelps/optional/releases/latest)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Go Doc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](http://godoc.org/github.com/markphelps/optional)
