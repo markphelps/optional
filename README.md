@@ -48,6 +48,45 @@ test.data.If(func(s string) {
 })
 ```
 
+## Marshalling/Unmarshalling JSON
+
+Optional types also marshal to/from JSON as you would expect:
+
+### Marshalling
+
+```go
+func main() {
+  var value = struct {
+    Field optional.String `json:"field,omitempty"`
+  }{
+    Field: optional.NewString("bar"),
+  }
+
+  out, _ := json.Marshal(value)
+  fmt.Println(string(out))
+  // outputs: {"field":"bar"}
+}
+```
+
+### Unmarshalling
+
+```go
+func main() {
+  var value = &struct {
+    Field optional.String `json:"field,omitempty"`
+  }{}
+
+  _ = json.Unmarshal([]byte(`{"field":"bar"}`), value)
+
+  value.Field.If(func(s string) {
+    fmt.Println(s)
+  })
+  // outputs: bar
+}
+```
+
+See [example_test.go](example_test.go) for more examples.
+
 ## Inspiration
 
 * Java [Optional](https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html)
@@ -113,9 +152,9 @@ and output file is optional_t.go. This can be overridden with the -output flag.
 
 ```go
 import (
-	"fmt"
+  "fmt"
 
-	"github.com/markphelps/optional"
+  "github.com/markphelps/optional"
 )
 
 s := optional.NewString("foo")
