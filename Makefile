@@ -8,12 +8,6 @@ setup: ## Install all the build and lint dependencies
 .PHONY: dep
 dep: ## Install all import dependencies
 	dep ensure
-	dep prune
-
-.PHONY: update
-update: ## Install all import dependencies
-	dep ensure -update
-	dep prune
 
 .PHONY: test
 test: ## Run all the tests

@@ -177,16 +177,18 @@ func ({{ .VariableName }} {{ .OutputName }}) MarshalJSON() ([]byte, error) {
 	if {{ .VariableName }}.Present() {
 		return json.Marshal({{ .VariableName }}.value)
 	}
-	return nil, nil
+	var zero {{ .TypeName }}
+	return json.Marshal(zero)
 }
 
 func ({{ .VariableName }} *{{ .OutputName }}) UnmarshalJSON(data []byte) error {
-	if len(data) < 1 {
-		{{ .VariableName }}.value = nil
-		return nil
+	var value {{ .TypeName }}
+
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
 	}
 
-	{{ .VariableName }}.value = new({{ .TypeName }})
-	return json.Unmarshal(data, {{ .VariableName }}.value)
+	{{ .VariableName }}.value = &value
+	return nil
 }
 `

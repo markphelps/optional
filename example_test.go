@@ -70,23 +70,20 @@ func Example_if() {
 }
 
 func Example_marshalJSON() {
-	var values = []struct {
-		Field optional.String `json:"field,omitempty"`
-	}{
-		{
-			Field: optional.NewString("foo"),
-		},
-		{
-			Field: optional.NewString(""),
-		},
-		{
-			Field: optional.NewString("bar"),
-		},
-		{},
+	type example struct {
+		Field *optional.String `json:"field,omitempty"`
+	}
+
+	var values = []optional.String{
+		optional.NewString("foo"),
+		optional.NewString(""),
+		optional.NewString("bar"),
 	}
 
 	for _, v := range values {
-		out, _ := json.Marshal(v)
+		out, _ := json.Marshal(&example{
+			Field: &v,
+		})
 		fmt.Println(string(out))
 	}
 
