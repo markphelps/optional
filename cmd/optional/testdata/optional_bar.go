@@ -19,7 +19,7 @@ func NewoptionalBar(v bar) optionalBar {
 }
 
 // Set sets the bar value
-func (o optionalBar) Set(v bar) {
+func (o *optionalBar) Set(v bar) {
 	o.value = &v
 }
 

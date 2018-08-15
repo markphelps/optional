@@ -141,7 +141,7 @@ func New{{ .OutputName }}(v {{ .TypeName }}) {{ .OutputName }} {
 }
 
 // Set sets the {{ .TypeName }} value
-func ({{ .VariableName }} {{ .OutputName }}) Set(v {{ .TypeName }}) {
+func ({{ .VariableName }} *{{ .OutputName }}) Set(v {{ .TypeName }}) {
 	{{ .VariableName }}.value = &v
 }
 
