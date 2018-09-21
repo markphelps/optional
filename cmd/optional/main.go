@@ -40,25 +40,28 @@ type generator struct {
 }
 
 func (g *generator) generate() ([]byte, error) {
-	t := template.Must(template.New("").Parse(tmpl))
 
-	data := struct {
-		Timestamp    time.Time
-		PackageName  string
-		TypeName     string
-		OutputName   string
-		VariableName string
-	}{
-		time.Now().UTC(),
-		g.packageName,
-		g.typeName,
-		g.outputName,
-		strings.ToLower(string(g.outputName[0])),
-	}
+	var (
+		t = template.Must(template.New("").Parse(tmpl))
 
-	var buf bytes.Buffer
+		data = struct {
+			Timestamp    time.Time
+			PackageName  string
+			TypeName     string
+			OutputName   string
+			VariableName string
+		}{
+			time.Now().UTC(),
+			g.packageName,
+			g.typeName,
+			g.outputName,
+			strings.ToLower(string(g.outputName[0])),
+		}
 
-	err := t.Execute(&buf, data)
+		buf bytes.Buffer
+		err = t.Execute(&buf, data)
+	)
+
 	if err != nil {
 		return nil, err
 	}
@@ -70,8 +73,10 @@ func main() {
 	log.SetFlags(0)
 	log.SetPrefix("optional: ")
 
-	typeName := flag.String("type", "", "type name; must be set")
-	outputName := flag.String("output", "", "output type and file name; default [o|O]ptional<type> and srcdir/optional_<type>.go")
+	var (
+		typeName   = flag.String("type", "", "type name; must be set")
+		outputName = flag.String("output", "", "output type and file name; default [o|O]ptional<type> and srcdir/optional_<type>.go")
+	)
 
 	flag.Parse()
 
