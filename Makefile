@@ -5,14 +5,17 @@ GOTOOLS = \
 
 .PHONY: setup
 setup: ## Install all the build and lint dependencies
-	go get -u $(GOTOOLS)
+	@echo "--> Installing tools"
+	@go get -u $(GOTOOLS)
 
 .PHONY: dep
 dep: ## Install all import dependencies
-	dep ensure
+	@echo "--> Installing dependencies"
+	@dep ensure
 
 .PHONY: test
 test: ## Run all the tests
+	@echo "--> Running tests"
 	@echo 'mode: atomic' > coverage.txt && go list ./... | grep -v /vendor/ | xargs -n1 -I{} sh -c 'go test -covermode=atomic -coverprofile=coverage.txt -v -race -timeout=30s {}'
 
 .PHONY: cover
@@ -21,22 +24,26 @@ cover: test ## Run all the tests and opens the coverage report
 
 .PHONY: fmt
 fmt: ## gofmt and goimports all go files
-	find . -name '*.go' -not -wholename './vendor/*' | while read -r file; do gofmt -w -s "$$file"; goimports -w "$$file"; done
+	@echo "--> Running gofmt/goimports"
+	@find . -name '*.go' -not -wholename './vendor/*' | while read -r file; do gofmt -w -s "$$file"; goimports -w "$$file"; done
 
 .PHONY: lint
 lint: ## Run all the linters
-	golangci-lint run
+	@echo "--> Running linters"
+	@golangci-lint run
 
 .PHONY: ci
 ci: lint test ## Run all the tests and code checks
 
 .PHONY: generate
 generate: ## Run go generate
-	go generate
+	@echo "--> Running go generate"
+	@go generate
 
 .PHONY: build
 build: ## Build
-	go build -o bin/optional ./cmd/optional/main.go
+	@echo "--> Building ..."
+	@go build -o bin/optional ./cmd/optional/main.go
 
 # Absolutely awesome: http://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 .PHONY: help
