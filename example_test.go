@@ -69,6 +69,33 @@ func Example_if() {
 	// present
 }
 
+func Example_set() {
+	var (
+		values = []string{
+			"foo",
+			"",
+			"bar",
+		}
+
+		s = optional.NewString("baz")
+	)
+
+	for _, v := range values {
+		s.Set(v)
+		if s.Present() {
+			value, err := s.Get()
+			if err == nil {
+				fmt.Println(value)
+			}
+		}
+	}
+
+	// Output:
+	// foo
+	//
+	// bar
+}
+
 func Example_marshalJSON() {
 	type example struct {
 		Field *optional.String `json:"field,omitempty"`
