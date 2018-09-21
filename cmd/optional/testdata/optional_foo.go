@@ -19,7 +19,7 @@ func NewOptionalFoo(v Foo) OptionalFoo {
 }
 
 // Set sets the Foo value
-func (o OptionalFoo) Set(v Foo) {
+func (o *OptionalFoo) Set(v Foo) {
 	o.value = &v
 }
 

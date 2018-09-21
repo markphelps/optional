@@ -19,7 +19,7 @@ func NewString(v string) String {
 }
 
 // Set sets the string value
-func (s String) Set(v string) {
+func (s *String) Set(v string) {
 	s.value = &v
 }
 
