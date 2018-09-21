@@ -1,9 +1,11 @@
+GOTOOLS = \
+	github.com/golang/dep/cmd/dep \
+	github.com/golangci/golangci-lint/cmd/golangci-lint \
+	golang.org/x/tools/cmd/cover \
+
 .PHONY: setup
 setup: ## Install all the build and lint dependencies
-	go get -u github.com/golang/dep/cmd/dep
-	go get -u github.com/alecthomas/gometalinter
-	go get -u golang.org/x/tools/cmd/cover
-	gometalinter --install
+	go get -u $(GOTOOLS)
 
 .PHONY: dep
 dep: ## Install all import dependencies
@@ -23,19 +25,7 @@ fmt: ## gofmt and goimports all go files
 
 .PHONY: lint
 lint: ## Run all the linters
-	gometalinter --vendor --disable-all \
-		--enable=deadcode \
-		--enable=ineffassign \
-		--enable=gosimple \
-		--enable=staticcheck \
-		--enable=gofmt \
-		--enable=goimports \
-		--enable=misspell \
-		--enable=errcheck \
-		--enable=vet \
-		--enable=vetshadow \
-		--deadline=10m \
-		./...
+	golangci-lint run
 
 .PHONY: ci
 ci: lint test ## Run all the tests and code checks
