@@ -16,11 +16,11 @@ func Example_get() {
 	}
 
 	for _, v := range values {
-		if v.Present() {
-			value, err := v.Get()
-			if err == nil {
-				fmt.Println(value)
-			}
+		value, err := v.Get()
+		if err == nil {
+			fmt.Println(value)
+		} else {
+			fmt.Println(err.Error())
 		}
 	}
 
@@ -28,6 +28,7 @@ func Example_get() {
 	// foo
 	//
 	// bar
+	// value not present
 }
 
 func Example_orElse() {
@@ -82,11 +83,11 @@ func Example_set() {
 
 	for _, v := range values {
 		s.Set(v)
-		if s.Present() {
-			value, err := s.Get()
-			if err == nil {
-				fmt.Println(value)
-			}
+		value, err := s.Get()
+		if err == nil {
+			fmt.Println(value)
+		} else {
+			fmt.Println(err.Error())
 		}
 	}
 

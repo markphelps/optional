@@ -153,7 +153,8 @@ func ({{ .VariableName }} *{{ .OutputName }}) Set(v {{ .TypeName }}) {
 // Get returns the {{ .TypeName }} value or an error if not present
 func ({{ .VariableName }} {{ .OutputName }}) Get() ({{ .TypeName }}, error) {
 	if !{{ .VariableName }}.Present() {
-		return *{{ .VariableName }}.value, errors.New("value not present")
+		var zero {{ .TypeName }}
+		return zero, errors.New("value not present")
 	}
 	return *{{ .VariableName }}.value, nil
 }
