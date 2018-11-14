@@ -22,7 +22,7 @@ test: ## Run all the tests
 	go test $(TEST_OPTIONS) -failfast $(SOURCE_FILES) -run $(TEST_PATTERN) -timeout=1m
 
 .PHONY: golden
-golden: ## Updates goldenfile
+golden: ## Updates goldenfiles and runs tests
 	@echo "--> Updating goldenfiles"
 	go test ./cmd/optional/... -update
 
