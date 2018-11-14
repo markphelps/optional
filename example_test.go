@@ -17,10 +17,10 @@ func Example_get() {
 
 	for _, v := range values {
 		value, err := v.Get()
-		if err == nil {
-			fmt.Println(value)
-		} else {
+		if err != nil {
 			fmt.Println(err.Error())
+		} else {
+			fmt.Println(value)
 		}
 	}
 
@@ -84,10 +84,10 @@ func Example_set() {
 	for _, v := range values {
 		s.Set(v)
 		value, err := s.Get()
-		if err == nil {
-			fmt.Println(value)
-		} else {
+		if err != nil {
 			fmt.Println(err.Error())
+		} else {
+			fmt.Println(value)
 		}
 	}
 

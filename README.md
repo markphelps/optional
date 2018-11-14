@@ -13,41 +13,7 @@ It is also a library that provides optional types for the primitive Go types.
 
 ## Motivation
 
-Ever had to write a test where you want to assert something only if a value is present?
-
-```go
-tests :=  []struct {
-  data string
-  dataPresent bool
-} {
-    { "YOLO kombucha slow-carb wayfarers fixie", true },
-    { "", false },
-}
-
-...
-
-if test.dataPresent {
-  assert.Equal(t, hipsterism, test.data)
-}
-```
-
-Now you can simplify all that with `optional` types:
-
-```go
-tests :=  []struct {
-  data optional.String
-} {
-    { optional.NewString("viral narwhal etsy twee VHS") },
-    { optional.String{} },
-  }
-}
-
-...
-
-test.data.If(func(s string) {
-    assert.Equal(t, hipsterism, s)
-})
-```
+In Go, variables declared without an explicit initial value are given their zero value. Most of the time this is what you want, but sometimes you want to be able to tell if a variable was set or if it's just a zero value. That's where [option types](https://en.wikipedia.org/wiki/Option_type) come in handy
 
 ## Marshalling/Unmarshalling JSON
 
@@ -56,33 +22,48 @@ Optional types also marshal to/from JSON as you would expect:
 ### Marshalling
 
 ```go
-func main() {
-  var value = struct {
-    Field optional.String `json:"field,omitempty"`
-  }{
-    Field: optional.NewString("bar"),
-  }
+package main
 
-  out, _ := json.Marshal(value)
-  fmt.Println(string(out))
-  // outputs: {"field":"bar"}
+import (
+	"encoding/json"
+	"fmt"
+)
+
+func main() {
+	var value = struct {
+		Field optional.String `json:"field,omitempty"`
+	}{
+		Field: optional.NewString("bar"),
+	}
+
+	out, _ := json.Marshal(value)
+
+	fmt.Println(string(out))
+	// outputs: {"field":"bar"}
 }
 ```
 
 ### Unmarshalling
 
 ```go
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
 func main() {
-  var value = &struct {
-    Field optional.String `json:"field,omitempty"`
-  }{}
+	var value = &struct {
+		Field optional.String `json:"field,omitempty"`
+	}{}
 
-  _ = json.Unmarshal([]byte(`{"field":"bar"}`), value)
+	_ = json.Unmarshal([]byte(`{"field":"bar"}`), value)
 
-  value.Field.If(func(s string) {
-    fmt.Println(s)
-  })
-  // outputs: bar
+	value.Field.If(func(s string) {
+		fmt.Println(s)
+	})
+	// outputs: bar
 }
 ```
 
@@ -152,21 +133,27 @@ and output file is optional_t.go. This can be overridden with the -output flag.
 ### Usage
 
 ```go
-import (
-  "fmt"
+package main
 
-  "github.com/markphelps/optional"
+import (
+	"fmt"
+
+	"github.com/markphelps/optional"
 )
 
-s := optional.NewString("foo")
+func main() {
+	s := optional.NewString("foo")
 
-if s.Present() {
-  value, _ := s.Get()
-  fmt.Println(value)
+	value, err := s.Get()
+	if err != nil {
+		// handle error!
+	} else {
+		fmt.Println(value)
+	}
+
+	t := optional.String{}
+	fmt.Println(t.OrElse("bar"))
 }
-
-t := optional.String{}
-fmt.Println(t.OrElse("bar"))
 ```
 
 See [example_test.go](example_test.go) and the [documentation](http://godoc.org/github.com/markphelps/optional) for more usage.
