@@ -7,9 +7,9 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/markphelps/optional?style=flat-square)](https://goreportcard.com/report/github.com/markphelps/optional)
 [![SayThanks.io](https://img.shields.io/badge/SayThanks.io-%E2%98%BC-1EAEDB.svg?style=flat-square)](https://saythanks.io/to/markphelps)
 
-Optional is a tool that generates 'optional' type wrappers around a given type T.
+Optional is a tool that generates option type wrappers around a given type T.
 
-It is also a library that provides optional types for the primitive Go types.
+It is also a library that provides option types for the primitive Go types.
 
 ## Motivation
 
@@ -17,7 +17,7 @@ In Go, variables declared without an explicit initial value are given their zero
 
 ## Marshalling/Unmarshalling JSON
 
-Optional types also marshal to/from JSON as you would expect:
+Option types also marshal to/from JSON as you would expect:
 
 ### Marshalling
 
