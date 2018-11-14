@@ -135,22 +135,22 @@ import (
 	"errors"
 )
 
-// {{ .OutputName }} is an optional {{ .TypeName }}
+// {{ .OutputName }} is an optional {{ .TypeName }}.
 type {{ .OutputName }} struct {
 	value *{{ .TypeName }}
 }
 
-// New{{ .OutputName }} creates a optional.{{ .OutputName }} from a {{ .TypeName }}
+// New{{ .OutputName }} creates an optional.{{ .OutputName }} from a {{ .TypeName }}.
 func New{{ .OutputName }}(v {{ .TypeName }}) {{ .OutputName }} {
 	return {{ .OutputName }}{&v}
 }
 
-// Set sets the {{ .TypeName }} value
+// Set sets the {{ .TypeName }} value.
 func ({{ .VariableName }} *{{ .OutputName }}) Set(v {{ .TypeName }}) {
 	{{ .VariableName }}.value = &v
 }
 
-// Get returns the {{ .TypeName }} value or an error if not present
+// Get returns the {{ .TypeName }} value or an error if not present.
 func ({{ .VariableName }} {{ .OutputName }}) Get() ({{ .TypeName }}, error) {
 	if !{{ .VariableName }}.Present() {
 		var zero {{ .TypeName }}
@@ -159,12 +159,12 @@ func ({{ .VariableName }} {{ .OutputName }}) Get() ({{ .TypeName }}, error) {
 	return *{{ .VariableName }}.value, nil
 }
 
-// Present returns whether or not the value is present
+// Present returns whether or not the value is present.
 func ({{ .VariableName }} {{ .OutputName }}) Present() bool {
 	return {{ .VariableName }}.value != nil
 }
 
-// OrElse returns the {{ .TypeName }} value or a default value if the value is not present
+// OrElse returns the {{ .TypeName }} value or a default value if the value is not present.
 func ({{ .VariableName }} {{ .OutputName }}) OrElse(v {{ .TypeName }}) {{ .TypeName }} {
 	if {{ .VariableName }}.Present() {
 		return *{{ .VariableName }}.value
@@ -172,7 +172,7 @@ func ({{ .VariableName }} {{ .OutputName }}) OrElse(v {{ .TypeName }}) {{ .TypeN
 	return v
 }
 
-// If calls the function f with the value if the value is present
+// If calls the function f with the value if the value is present.
 func ({{ .VariableName }} {{ .OutputName }}) If(fn func({{ .TypeName }})) {
 	if {{ .VariableName }}.Present() {
 		fn(*{{ .VariableName }}.value)
