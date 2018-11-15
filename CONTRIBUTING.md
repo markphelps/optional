@@ -2,19 +2,19 @@
 
 ## Setup your machine
 
-`example` is written in [Go](https://golang.org/).
+`optional` is written in [Go](https://golang.org/).
 
 Prerequisites are:
 
 * Build:
   * `make`
-  * [Go 1.8+](http://golang.org/doc/install)
+  * [Go 1.10+](http://golang.org/doc/install)
 
-Clone `example` from source into `$GOPATH`:
+Clone `optional` from source into `$GOPATH`:
 
 ```sh
-$ go get github.com/markphelps/example
-$ cd $GOPATH/src/github.com/markphelps/example
+$ go get github.com/markphelps/optional
+$ cd $GOPATH/src/github.com/markphelps/optional
 ```
 
 Install the build and lint dependencies:
@@ -34,7 +34,17 @@ $ make test
 You can create a branch for your changes and try to build from the source as you go:
 
 ``` sh
-$ go build
+$ make build
+```
+
+### Goldenfiles
+
+If you change the public API, you may have to update the goldenfiles in [cmd/optional](cmd/optional).
+
+To do so, run:
+
+```sh
+$ TEST_OPTIONS=-update make test
 ```
 
 When you are satisfied with the changes, we suggest you run:
@@ -47,5 +57,5 @@ Which runs all the linters and tests.
 
 ## Submit a pull request
 
-Push your branch to your `example` fork and open a pull request against the
+Push your branch to your `optional` fork and open a pull request against the
 master branch.
