@@ -44,7 +44,7 @@ If you change the public API, you may have to update the goldenfiles in [cmd/opt
 To do so, run:
 
 ```sh
-$ TEST_OPTIONS=-update make test
+$ go test ./cmd/optional/... -update
 ```
 
 When you are satisfied with the changes, we suggest you run:
