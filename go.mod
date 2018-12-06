@@ -1,4 +1,4 @@
-module optional
+module github.com/markphelps/optional
 
 require (
 	github.com/davecgh/go-spew v1.1.0
