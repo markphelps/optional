@@ -189,7 +189,7 @@ func ({{ .VariableName }} {{ .OutputName }}) MarshalJSON() ([]byte, error) {
 func ({{ .VariableName }} *{{ .OutputName }}) UnmarshalJSON(data []byte) error {
 
 	if string(data) == "null" {
-		s.value = nil
+		{{ .VariableName }}.value = nil
 		return nil
 	}
 
