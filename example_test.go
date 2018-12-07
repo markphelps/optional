@@ -99,7 +99,8 @@ func Example_set() {
 
 func Example_marshalJSON() {
 	type example struct {
-		Field *optional.String `json:"field,omitempty"`
+		Field    *optional.String `json:"field,omitempty"`
+		FieldTwo *optional.String `json:"field_two"`
 	}
 
 	var values = []optional.String{
@@ -110,28 +111,35 @@ func Example_marshalJSON() {
 
 	for _, v := range values {
 		out, _ := json.Marshal(&example{
-			Field: &v,
+			Field:    &v,
+			FieldTwo: &v,
 		})
 		fmt.Println(string(out))
 	}
 
+	out, _ := json.Marshal(&example{})
+	fmt.Println(string(out))
+
 	// Output:
-	// {"field":"foo"}
-	// {"field":""}
-	// {"field":"bar"}
+	// {"field":"foo","field_two":"foo"}
+	// {"field":"","field_two":""}
+	// {"field":"bar","field_two":"bar"}
+	// {"field_two":null}
 }
 
 func Example_unmarshalJSON() {
 	var values = []string{
-		`{"field":"foo"}`,
-		`{"field":""}`,
-		`{"field":"bar"}`,
+		`{"field":"foo","field_two":"foo"}`,
+		`{"field":"","field_two":""}`,
+		`{"field":"null","field_two":"null"}`,
+		`{"field":"bar","field_two":"bar"}`,
 		"{}",
 	}
 
 	for _, v := range values {
 		var o = &struct {
-			Field optional.String `json:"field,omitempty"`
+			Field    optional.String `json:"field,omitempty"`
+			FieldTwo optional.String `json:"field_two"`
 		}{}
 
 		if err := json.Unmarshal([]byte(v), o); err != nil {
@@ -141,10 +149,18 @@ func Example_unmarshalJSON() {
 		o.Field.If(func(s string) {
 			fmt.Println(s)
 		})
+
+		o.FieldTwo.If(func(s string) {
+			fmt.Println(s)
+		})
 	}
 
 	// Output:
 	// foo
+	// foo
 	//
+
+	//
+	// bar
 	// bar
 }
