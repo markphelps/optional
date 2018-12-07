@@ -17,6 +17,8 @@ In Go, variables declared without an explicit initial value are given their zero
 
 ## Marshalling/Unmarshalling JSON
 
+**Note:** v0.6.0 introduces a potential breaking change to anyone depending on marshalling non-present values to their zero values instead of null. See: [#9](https://github.com/markphelps/optional/pull/9) for more context.
+
 Option types also marshal to/from JSON as you would expect:
 
 ### Marshalling
@@ -165,3 +167,7 @@ See [example_test.go](example_test.go) and the [documentation](http://godoc.org/
 1. Commit your changes (`git commit -am 'Add some feature'`)
 1. Push to the branch (`git push origin my-new-feature`)
 1. Create a new Pull Request
+
+### Golden Files
+
+If changing the API you may need to update the [golden files](https://medium.com/soon-london/testing-with-golden-files-in-go-7fccc71c43d3) for your tests to pass by running `go test ./cmd/optional/... -update`.
