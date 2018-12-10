@@ -7,9 +7,9 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/markphelps/optional?style=flat-square)](https://goreportcard.com/report/github.com/markphelps/optional)
 [![SayThanks.io](https://img.shields.io/badge/SayThanks.io-%E2%98%BC-1EAEDB.svg?style=flat-square)](https://saythanks.io/to/markphelps)
 
-Optional is a tool that generates option type wrappers around a given type T.
+Optional is a library that provides option types for the primitive Go types.
 
-It is also a library that provides option types for the primitive Go types.
+It can also be used as a tool to generate option type wrappers around your own types.
 
 ## Motivation
 
@@ -19,7 +19,7 @@ In Go, variables declared without an explicit initial value are given their zero
 
 **Note:** v0.6.0 introduces a potential breaking change to anyone depending on marshalling non-present values to their zero values instead of null. See: [#9](https://github.com/markphelps/optional/pull/9) for more context.
 
-Option types also marshal to/from JSON as you would expect:
+Option types marshal to/from JSON as you would expect:
 
 ### Marshalling
 
@@ -160,6 +160,15 @@ func main() {
 
 See [example_test.go](example_test.go) and the [documentation](http://godoc.org/github.com/markphelps/optional) for more usage.
 
+## Test Coverage
+
+As you can see test coverage is a bit lacking for the library. This is simply because testing generated code is not super easy. I'm currently working on improving test coverage for the generated types, but in the meantime checkout [string_test.go](string_test.go) and [int_test.go](int_test.go) for examples.
+
+Also checkout:
+
+* [example_test.go](example_test.go) for example usage.
+* [cmd/optional/golden_test.go](cmd/optional/golden_test.go) for [golden file](https://medium.com/soon-london/testing-with-golden-files-in-go-7fccc71c43d3) based testing of the generator itself.
+
 ## Contributing
 
 1. [Fork it](https://github.com/markphelps/optional/fork)
@@ -170,4 +179,6 @@ See [example_test.go](example_test.go) and the [documentation](http://godoc.org/
 
 ### Golden Files
 
-If changing the API you may need to update the [golden files](https://medium.com/soon-london/testing-with-golden-files-in-go-7fccc71c43d3) for your tests to pass by running `go test ./cmd/optional/... -update`.
+If changing the API you may need to update the [golden files](https://medium.com/soon-london/testing-with-golden-files-in-go-7fccc71c43d3) for your tests to pass by running:
+
+`go test ./cmd/optional/... -update`.
