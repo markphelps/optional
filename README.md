@@ -15,62 +15,6 @@ It can also be used as a tool to generate option type wrappers around your own t
 
 In Go, variables declared without an explicit initial value are given their zero value. Most of the time this is what you want, but sometimes you want to be able to tell if a variable was set or if it's just a zero value. That's where [option types](https://en.wikipedia.org/wiki/Option_type) come in handy.
 
-## Marshalling/Unmarshalling JSON
-
-**Note:** v0.6.0 introduces a potential breaking change to anyone depending on marshalling non-present values to their zero values instead of null. See: [#9](https://github.com/markphelps/optional/pull/9) for more context.
-
-Option types marshal to/from JSON as you would expect:
-
-### Marshalling
-
-```go
-package main
-
-import (
-	"encoding/json"
-	"fmt"
-)
-
-func main() {
-	var value = struct {
-		Field optional.String `json:"field,omitempty"`
-	}{
-		Field: optional.NewString("bar"),
-	}
-
-	out, _ := json.Marshal(value)
-
-	fmt.Println(string(out))
-	// outputs: {"field":"bar"}
-}
-```
-
-### Unmarshalling
-
-```go
-package main
-
-import (
-	"encoding/json"
-	"fmt"
-)
-
-func main() {
-	var value = &struct {
-		Field optional.String `json:"field,omitempty"`
-	}{}
-
-	_ = json.Unmarshal([]byte(`{"field":"bar"}`), value)
-
-	value.Field.If(func(s string) {
-		fmt.Println(s)
-	})
-	// outputs: bar
-}
-```
-
-See [example_test.go](example_test.go) for more examples.
-
 ## Inspiration
 
 * Java [Optional](https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html)
@@ -160,6 +104,62 @@ func main() {
 
 See [example_test.go](example_test.go) and the [documentation](http://godoc.org/github.com/markphelps/optional) for more usage.
 
+## Marshalling/Unmarshalling JSON
+
+**Note:** v0.6.0 introduces a potential breaking change to anyone depending on marshalling non-present values to their zero values instead of null. See: [#9](https://github.com/markphelps/optional/pull/9) for more context.
+
+Option types marshal to/from JSON as you would expect:
+
+### Marshalling
+
+```go
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+func main() {
+	var value = struct {
+		Field optional.String `json:"field,omitempty"`
+	}{
+		Field: optional.NewString("bar"),
+	}
+
+	out, _ := json.Marshal(value)
+
+	fmt.Println(string(out))
+	// outputs: {"field":"bar"}
+}
+```
+
+### Unmarshalling
+
+```go
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+func main() {
+	var value = &struct {
+		Field optional.String `json:"field,omitempty"`
+	}{}
+
+	_ = json.Unmarshal([]byte(`{"field":"bar"}`), value)
+
+	value.Field.If(func(s string) {
+		fmt.Println(s)
+	})
+	// outputs: bar
+}
+```
+
+See [example_test.go](example_test.go) for more examples.
+
 ## Test Coverage
 
 As you can see test coverage is a bit lacking for the library. This is simply because testing generated code is not super easy. I'm currently working on improving test coverage for the generated types, but in the meantime checkout [string_test.go](string_test.go) and [int_test.go](int_test.go) for examples.
@@ -169,6 +169,12 @@ Also checkout:
 * [example_test.go](example_test.go) for example usage.
 * [cmd/optional/golden_test.go](cmd/optional/golden_test.go) for [golden file](https://medium.com/soon-london/testing-with-golden-files-in-go-7fccc71c43d3) based testing of the generator itself.
 
+### Golden Files
+
+If changing the API you may need to update the [golden files](https://medium.com/soon-london/testing-with-golden-files-in-go-7fccc71c43d3) for your tests to pass by running:
+
+`go test ./cmd/optional/... -update`.
+
 ## Contributing
 
 1. [Fork it](https://github.com/markphelps/optional/fork)
@@ -176,9 +182,3 @@ Also checkout:
 1. Commit your changes (`git commit -am 'Add some feature'`)
 1. Push to the branch (`git push origin my-new-feature`)
 1. Create a new Pull Request
-
-### Golden Files
-
-If changing the API you may need to update the [golden files](https://medium.com/soon-london/testing-with-golden-files-in-go-7fccc71c43d3) for your tests to pass by running:
-
-`go test ./cmd/optional/... -update`.
