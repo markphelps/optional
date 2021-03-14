@@ -32,6 +32,14 @@ func (s String) Get() (string, error) {
 	return *s.value, nil
 }
 
+// MustGet returns the string value or panics if not present.
+func (s String) MustGet() string {
+	if !s.Present() {
+		panic("value not present")
+	}
+	return *s.value
+}
+
 // Present returns whether or not the value is present.
 func (s String) Present() bool {
 	return s.value != nil

@@ -31,6 +31,30 @@ func Example_get() {
 	// value not present
 }
 
+func Example_mustGet() {
+	values := []optional.String{
+		optional.NewString("foo"),
+		optional.NewString(""),
+		optional.NewString("bar"),
+		{},
+	}
+
+	for _, v := range values {
+		if v.Present() {
+			value := v.MustGet()
+			fmt.Println(value)
+		} else {
+			fmt.Println("not present")
+		}
+	}
+
+	// Output:
+	// foo
+	//
+	// bar
+	// not present
+}
+
 func Example_orElse() {
 	values := []optional.String{
 		optional.NewString("foo"),
