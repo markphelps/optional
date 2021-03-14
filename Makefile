@@ -1,5 +1,4 @@
 GOTOOLS = \
-	github.com/golang/dep/cmd/dep \
 	github.com/golangci/golangci-lint/cmd/golangci-lint \
 
 SOURCE_FILES?=./...
@@ -9,12 +8,7 @@ TEST_OPTIONS?=
 .PHONY: setup
 setup: ## Install all the build and lint dependencies
 	@echo "--> Installing tools"
-	go get -u $(GOTOOLS)
-
-.PHONY: dep
-dep: ## Install all import dependencies
-	@echo "--> Installing dependencies"
-	dep ensure
+	go install $(GOTOOLS)
 
 .PHONY: test
 test: ## Run all the tests
@@ -24,7 +18,7 @@ test: ## Run all the tests
 .PHONY: fmt
 fmt: ## gofmt and goimports all go files
 	@echo "--> Running gofmt/goimports"
-	@find . -name '*.go' -not -wholename './vendor/*' | while read -r file; do gofmt -w -s "$$file"; goimports -w "$$file"; done
+	@find . -name '*.go' | while read -r file; do gofmt -w -s "$$file"; goimports -w "$$file"; done
 
 .PHONY: lint
 lint: ## Run all the linters
