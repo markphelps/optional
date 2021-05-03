@@ -179,6 +179,8 @@ func ({{ .VariableName }} {{ .OutputName }}) If(fn func({{ .TypeName }})) {
 	}
 }
 
+{{- if and (ne .TypeName "complex64") (ne .TypeName "complex128") }}
+
 func ({{ .VariableName }} {{ .OutputName }}) MarshalJSON() ([]byte, error) {
 	if {{ .VariableName }}.Present() {
 		return json.Marshal({{ .VariableName }}.value)
@@ -202,4 +204,5 @@ func ({{ .VariableName }} *{{ .OutputName }}) UnmarshalJSON(data []byte) error {
 	{{ .VariableName }}.value = &value
 	return nil
 }
+{{- end }}
 `
