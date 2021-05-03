@@ -108,6 +108,8 @@ See [example_test.go](example_test.go) and the [documentation](http://godoc.org/
 
 **Note:** v0.6.0 introduces a potential breaking change to anyone depending on marshalling non-present values to their zero values instead of null. See: [#9](https://github.com/markphelps/optional/pull/9) for more context.
 
+**Note:** v0.8.0 removes JSON support from `complex64` and `complex128` types per https://github.com/markphelps/optional/issues/13
+
 Option types marshal to/from JSON as you would expect:
 
 ### Marshalling
