@@ -161,6 +161,14 @@ func ({{ .VariableName }} {{ .OutputName }}) Get() ({{ .TypeName }}, error) {
 	return *{{ .VariableName }}.value, nil
 }
 
+// MustGet returns the {{ .TypeName }} value or panics if not present.
+func ({{ .VariableName }} {{ .OutputName }}) MustGet() {{ .TypeName }} {
+	if !{{ .VariableName }}.Present() {
+		panic("value not present")
+	}
+	return *{{ .VariableName }}.value
+}
+
 // Present returns whether or not the value is present.
 func ({{ .VariableName }} {{ .OutputName }}) Present() bool {
 	return {{ .VariableName }}.value != nil

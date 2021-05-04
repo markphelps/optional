@@ -32,6 +32,14 @@ func (o optionalBar) Get() (bar, error) {
 	return *o.value, nil
 }
 
+// MustGet returns the bar value or panics if not present.
+func (o optionalBar) MustGet() bar {
+	if !o.Present() {
+		panic("value not present")
+	}
+	return *o.value
+}
+
 // Present returns whether or not the value is present.
 func (o optionalBar) Present() bool {
 	return o.value != nil
