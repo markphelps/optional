@@ -37,7 +37,7 @@ func TestInt_MustGet_Present(t *testing.T) {
 func TestInt_MustGet_NotPresent(t *testing.T) {
 	o := Int{}
 
-	assert.Panics(t, func(){ _ = o.MustGet() })
+	assert.Panics(t, func() { _ = o.MustGet() })
 	assert.False(t, o.Present())
 }
 
