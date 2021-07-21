@@ -1,7 +1,7 @@
 //go:generate go run cmd/optional/main.go -type=bool -output=Bool
 //go:generate go run cmd/optional/main.go -type=byte -output=Byte
-//go:generate go run cmd/optional/main.go -type=complex128 -output=Complex128
-//go:generate go run cmd/optional/main.go -type=complex64 -output=Complex64
+//go:generate go run cmd/optional/main.go -type=complex128 -output=Complex128 -no-json
+//go:generate go run cmd/optional/main.go -type=complex64 -output=Complex64 -no-json
 //go:generate go run cmd/optional/main.go -type=error -output=Error
 //go:generate go run cmd/optional/main.go -type=float32 -output=Float32
 //go:generate go run cmd/optional/main.go -type=float64 -output=Float64
@@ -18,5 +18,8 @@
 //go:generate go run cmd/optional/main.go -type=uint64 -output=Uint64
 //go:generate go run cmd/optional/main.go -type=uint8 -output=Uint8
 //go:generate go run cmd/optional/main.go -type=uintptr -output=Uintptr
+//go:generate go run cmd/optional/main.go -type=big.Int -output=BigInt -no-json -type-package="math/big"
+//go:generate go run cmd/optional/main.go -type=big.Rat -output=BigRat -no-json -type-package="math/big"
+//go:generate go run cmd/optional/main.go -type=big.Float -output=BigFloat -no-json -type-package="math/big"
 
 package optional
