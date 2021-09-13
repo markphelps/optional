@@ -11,20 +11,25 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-var updateFlag = flag.Bool("update", false, "Update the golden files.")
+var updateFlag = flag.Bool("update", true, "Update the golden files.")
 
 type testcase struct {
 	name        string
 	packageName string
 	outputName  string
+	result      bool
 	typeName    string
 	filename    string
 }
 
 var tests = []testcase{
-	{"built-in datatype", "optional", "String", "string", "string.go"},
-	{"custom exported type", "foo", "OptionalFoo", "Foo", "optional_foo.go"},
-	{"custom non-exported type", "bar", "optionalBar", "bar", "optional_bar.go"},
+	{"built-in datatype", "testdata", "String", false, "string", "string.go"},
+	{"custom exported type", "testdata", "OptionalFoo", false, "Foo", "optional_foo.go"},
+	{"custom non-exported type", "testdata", "optionalBar", false, "bar", "optional_bar.go"},
+	// result
+	{"built-in datatype result", "testdata", "ResultString", true, "string", "result_string.go"},
+	{"custom exported type result", "testdata", "ResultFoo", true, "Foo", "result_foo.go"},
+	{"custom non-exported type result", "testdata", "resultBar", true, "bar", "result_bar.go"},
 }
 
 // TestGolden compares generated files with 'golden files' line by line
@@ -36,6 +41,7 @@ func TestGolden(t *testing.T) {
 				packageName: test.packageName,
 				outputName:  test.outputName,
 				typeName:    test.typeName,
+				result:      test.result,
 			}
 
 			output, err := g.generate()

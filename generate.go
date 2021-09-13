@@ -18,5 +18,23 @@
 //go:generate go run cmd/optional/main.go -type=uint64 -output=Uint64
 //go:generate go run cmd/optional/main.go -type=uint8 -output=Uint8
 //go:generate go run cmd/optional/main.go -type=uintptr -output=Uintptr
-
+//go:generate go run cmd/optional/main.go -result -type=bool -output=ResultBool
+//go:generate go run cmd/optional/main.go -result -type=byte -output=ResultByte
+//go:generate go run cmd/optional/main.go -result -type=complex128 -output=ResultComplex128
+//go:generate go run cmd/optional/main.go -result -type=complex64 -output=ResultComplex64
+//go:generate go run cmd/optional/main.go -result -type=float32 -output=ResultFloat32
+//go:generate go run cmd/optional/main.go -result -type=float64 -output=ResultFloat64
+//go:generate go run cmd/optional/main.go -result -type=int -output=ResultInt
+//go:generate go run cmd/optional/main.go -result -type=int16 -output=ResultInt16
+//go:generate go run cmd/optional/main.go -result -type=int32 -output=ResultInt32
+//go:generate go run cmd/optional/main.go -result -type=int64 -output=ResultInt64
+//go:generate go run cmd/optional/main.go -result -type=int8 -output=ResultInt8
+//go:generate go run cmd/optional/main.go -result -type=rune -output=ResultRune
+//go:generate go run cmd/optional/main.go -result -type=string -output=ResultString
+//go:generate go run cmd/optional/main.go -result -type=uint -output=ResultUint
+//go:generate go run cmd/optional/main.go -result -type=uint16 -output=ResultUint16
+//go:generate go run cmd/optional/main.go -result -type=uint32 -output=ResultUint32
+//go:generate go run cmd/optional/main.go -result -type=uint64 -output=ResultUint64
+//go:generate go run cmd/optional/main.go -result -type=uint8 -output=ResultUint8
+//go:generate go run cmd/optional/main.go -result -type=uintptr -output=ResultUintptr
 package optional
