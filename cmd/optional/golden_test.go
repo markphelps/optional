@@ -11,7 +11,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-var updateFlag = flag.Bool("update", true, "Update the golden files.")
+var updateFlag = flag.Bool("update", false, "Update the golden files.")
 
 type testcase struct {
 	name        string
