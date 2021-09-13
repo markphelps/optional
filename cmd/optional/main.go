@@ -238,22 +238,22 @@ type {{ .OutputName }} struct {
 }
 
 func New{{ .ExportedOutputName }}(v {{ .TypeName }}, err error) {{ .OutputName }} {
-    if err != nil {
+	if err != nil {
 		return Err{{ .ExportedName }}(err)
-    } else {
+	} else {
 		return Ok{{ .ExportedName }}(v)
-    }
+	}
 }
 
 func New{{ .ExportedOutputName }}Ptr(v *{{ .TypeName }}, err error) {{ .OutputName }} {
-    if v == nil && err == nil {
+	if v == nil && err == nil {
 		panic("both value and err are nil")
 	}
-    if err != nil {
+	if err != nil {
 		return Err{{ .ExportedName }}(err)
-    } else {
+	} else {
 		return Ok{{ .ExportedName }}(*v)
-    }
+	}
 }
 
 func Ok{{ .ExportedName }}(v {{ .TypeName }}) {{ .OutputName }} {
@@ -268,14 +268,14 @@ func ({{ .VariableName }} {{ .OutputName }}) Value() {{ .TypeName }} {
 	if {{ .VariableName }}.value == nil {
 		panic("value not present")
 	}
-	return *{{ .VariableName }}.value 
+	return *{{ .VariableName }}.value
 }
 
 func ({{ .VariableName }} {{ .OutputName }}) Err() error {
 	if {{ .VariableName }}.err == nil {
 		panic("err not present")
 	}
-	return {{ .VariableName }}.err 
+	return {{ .VariableName }}.err
 }
 
 func ({{ .VariableName }} {{ .OutputName }}) Get() ({{ .TypeName }}, error) {
