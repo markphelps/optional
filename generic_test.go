@@ -10,7 +10,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestOpt_Get_Present(t *testing.T) {
+func TestOptional_Get_Present(t *testing.T) {
 	o := New(42)
 
 	v, err := o.Get()
@@ -19,8 +19,8 @@ func TestOpt_Get_Present(t *testing.T) {
 	assert.Equal(t, 42, v)
 }
 
-func TestOpt_Get_NotPresent(t *testing.T) {
-	o := Opt[int]{}
+func TestOptional_Get_NotPresent(t *testing.T) {
+	o := Optional[int]{}
 	var zero int
 
 	v, err := o.Get()
@@ -29,7 +29,7 @@ func TestOpt_Get_NotPresent(t *testing.T) {
 	assert.Equal(t, zero, v)
 }
 
-func TestOpt_MustGet_Present(t *testing.T) {
+func TestOptional_MustGet_Present(t *testing.T) {
 	o := New(42)
 
 	v := o.MustGet()
@@ -37,14 +37,14 @@ func TestOpt_MustGet_Present(t *testing.T) {
 	assert.Equal(t, 42, v)
 }
 
-func TestOpt_MustGet_NotPresent(t *testing.T) {
-	o := Opt[int]{}
+func TestOptional_MustGet_NotPresent(t *testing.T) {
+	o := Optional[int]{}
 
 	assert.Panics(t, func() { _ = o.MustGet() })
 	assert.False(t, o.Present())
 }
 
-func TestOpt_OrElse_Present(t *testing.T) {
+func TestOptional_OrElse_Present(t *testing.T) {
 	o := New(42)
 
 	v := o.OrElse(99)
@@ -52,15 +52,15 @@ func TestOpt_OrElse_Present(t *testing.T) {
 	assert.Equal(t, 42, v)
 }
 
-func TestOpt_OrElse_NotPresent(t *testing.T) {
-	o := Opt[int]{}
+func TestOptional_OrElse_NotPresent(t *testing.T) {
+	o := Optional[int]{}
 
 	v := o.OrElse(99)
 	assert.False(t, o.Present())
 	assert.Equal(t, 99, v)
 }
 
-func TestOpt_If_Present(t *testing.T) {
+func TestOptional_If_Present(t *testing.T) {
 	o := New(42)
 
 	canary := false
@@ -71,8 +71,8 @@ func TestOpt_If_Present(t *testing.T) {
 	assert.True(t, canary)
 }
 
-func TestOpt_If_NotPresent(t *testing.T) {
-	o := Opt[int]{}
+func TestOptional_If_NotPresent(t *testing.T) {
+	o := Optional[int]{}
 
 	canary := false
 	o.If(func(v int) {
@@ -82,18 +82,18 @@ func TestOpt_If_NotPresent(t *testing.T) {
 	assert.False(t, canary)
 }
 
-func TestOpt_MarshalJSON(t *testing.T) {
+func TestOptional_MarshalJSON(t *testing.T) {
 	type fields struct {
-		WithValue     Opt[int]
-		WithZeroValue Opt[int]
-		WithNoValue   Opt[int]
-		Unused        Opt[int]
+		WithValue     Optional[int]
+		WithZeroValue Optional[int]
+		WithNoValue   Optional[int]
+		Unused        Optional[int]
 	}
 
 	var instance = fields{
 		WithValue:     New(42),
 		WithZeroValue: New(0),
-		WithNoValue:   Opt[int]{},
+		WithNoValue:   Optional[int]{},
 	}
 
 	out, err := json.Marshal(instance)
@@ -101,12 +101,12 @@ func TestOpt_MarshalJSON(t *testing.T) {
 	assert.Equal(t, `{"WithValue":42,"WithZeroValue":0,"WithNoValue":null,"Unused":null}`, string(out))
 }
 
-func TestOpt_UnmarshalJSON(t *testing.T) {
+func TestOptional_UnmarshalJSON(t *testing.T) {
 	type fields struct {
-		WithValue     Opt[int]
-		WithZeroValue Opt[int]
-		WithNoValue   Opt[int]
-		Unused        Opt[int]
+		WithValue     Optional[int]
+		WithZeroValue Optional[int]
+		WithNoValue   Optional[int]
+		Unused        Optional[int]
 	}
 
 	var jsonString = `{"WithValue":42,"WithZeroValue":0,"WithNoValue":null}`
@@ -128,12 +128,12 @@ func TestOpt_UnmarshalJSON(t *testing.T) {
 	assert.Nil(t, instance.Unused.value)
 }
 
-func TestOpt_UnmarshalJSON_Overwritten(t *testing.T) {
+func TestOptional_UnmarshalJSON_Overwritten(t *testing.T) {
 	type fields struct {
-		WithValue     Opt[int]
-		WithZeroValue Opt[int]
-		WithNoValue   Opt[int]
-		Unused        Opt[int]
+		WithValue     Optional[int]
+		WithZeroValue Optional[int]
+		WithNoValue   Optional[int]
+		Unused        Optional[int]
 	}
 
 	var jsonString = `{"WithValue":42,"WithZeroValue":0,"WithNoValue":null}`
