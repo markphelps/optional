@@ -4,6 +4,7 @@
 package optional
 
 import (
+	"encoding/json"
     "errors"
 )
 
@@ -60,26 +61,25 @@ func (o Opt[T]) If(fn func(T)) {
 	}
 }
 
-//func (i Int) MarshalJSON() ([]byte, error) {
-	//if i.Present() {
-		//return json.Marshal(i.value)
-	//}
-	//return json.Marshal(nil)
-//}
+func (o Opt[T]) MarshalJSON() ([]byte, error) {
+	if o.Present() {
+		return json.Marshal(o.value)
+	}
+	return json.Marshal(nil)
+}
 
-//func (i *Int) UnmarshalJSON(data []byte) error {
+func (o *Opt[T]) UnmarshalJSON(data []byte) error {
+	if string(data) == "null" {
+		o.value = nil
+		return nil
+	}
 
-	//if string(data) == "null" {
-		//i.value = nil
-		//return nil
-	//}
+	var value T
 
-	//var value int
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
 
-	//if err := json.Unmarshal(data, &value); err != nil {
-		//return err
-	//}
-
-	//i.value = &value
-	//return nil
-//}
+	o.value = &value
+	return nil
+}
