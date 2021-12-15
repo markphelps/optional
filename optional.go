@@ -5,7 +5,7 @@ package optional
 
 import (
 	"encoding/json"
-    "errors"
+	"errors"
 )
 
 // Optional is an optional T.
