@@ -7,9 +7,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/markphelps/optional?style=flat-square)](https://goreportcard.com/report/github.com/markphelps/optional)
 [![SayThanks.io](https://img.shields.io/badge/SayThanks.io-%E2%98%BC-1EAEDB.svg?style=flat-square)](https://saythanks.io/to/markphelps)
 
-Optional is a library that provides option types for the primitive Go types.
-
-It can also be used as a tool to generate option type wrappers around your own types.
+Optional is a library that provides option types for Go using generics.
 
 ## Motivation
 
@@ -21,84 +19,29 @@ In Go, variables declared without an explicit initial value are given their zero
 * [https://github.com/leighmcculloch/go-optional](https://github.com/leighmcculloch/go-optional)
 * [https://github.com/golang/go/issues/7054](https://github.com/golang/go/issues/7054)
 
-## Tool
-
-### Install
-
-`go get -u github.com/markphelps/optional/cmd/optional`
-
-### Usage
-
-Typically this process would be run using go generate, like this:
-
-```go
-//go:generate optional -type=Foo
-```
-
-running this command:
-
-```bash
-optional -type=Foo
-```
-
-in the same directory will create the file optional_foo.go
-containing a definition of:
-
-```go
-type OptionalFoo struct {
-  ...
-}
-```
-
-The default type is OptionalT or optionalT (depending on if the type is exported)
-and output file is optional_t.go. This can be overridden with the -output flag.
-
-## Library
-
-* [bool](bool.go)
-* [byte](byte.go)
-* [complex128](complex128.go)
-* [complex64](complex64.go)
-* [float32](float32.go)
-* [float64](float64.go)
-* [int](int.go)
-* [int16](int16.go)
-* [int32](int32.go)
-* [int64](int64.go)
-* [int8](int8.go)
-* [rune](rune.go)
-* [string](string.go)
-* [uint](uint.go)
-* [uint16](uint16.go)
-* [uint32](uint32.go)
-* [uint64](uint64.go)
-* [uint8](uint8.go)
-* [uintptr](uintptr.go)
-* [error](error.go)
-
 ### Usage
 
 ```go
 package main
 
 import (
-	"fmt"
+    "fmt"
 
-	"github.com/markphelps/optional"
+    "github.com/markphelps/optional"
 )
 
 func main() {
-	s := optional.NewString("foo")
+    s := optional.New("foo")
 
-	value, err := s.Get()
-	if err != nil {
-		// handle error!
-	} else {
-		fmt.Println(value)
-	}
+    value, err := s.Get()
+    if err != nil {
+        // handle error!
+    } else {
+        fmt.Println(value)
+    }
 
-	t := optional.String{}
-	fmt.Println(t.OrElse("bar"))
+    t := optional.Optional[string]{}
+    fmt.Println(t.OrElse("bar"))
 }
 ```
 
@@ -108,8 +51,6 @@ See [example_test.go](example_test.go) and the [documentation](http://godoc.org/
 
 **Note:** v0.6.0 introduces a potential breaking change to anyone depending on marshalling non-present values to their zero values instead of null. See: [#9](https://github.com/markphelps/optional/pull/9) for more context.
 
-**Note:** v0.8.0 removes JSON support from `complex64` and `complex128` types per [#13](https://github.com/markphelps/optional/issues/13)
-
 Option types marshal to/from JSON as you would expect:
 
 ### Marshalling
@@ -118,21 +59,21 @@ Option types marshal to/from JSON as you would expect:
 package main
 
 import (
-	"encoding/json"
-	"fmt"
+    "encoding/json"
+    "fmt"
 )
 
 func main() {
-	var value = struct {
-		Field optional.String `json:"field,omitempty"`
-	}{
-		Field: optional.NewString("bar"),
-	}
+    var value = struct {
+        Field optional.Optional[string] `json:"field,omitempty"`
+    }{
+        Field: optional.New("bar"),
+    }
 
-	out, _ := json.Marshal(value)
+    out, _ := json.Marshal(value)
 
-	fmt.Println(string(out))
-	// outputs: {"field":"bar"}
+    fmt.Println(string(out))
+    // outputs: {"field":"bar"}
 }
 ```
 
@@ -142,40 +83,25 @@ func main() {
 package main
 
 import (
-	"encoding/json"
-	"fmt"
+    "encoding/json"
+    "fmt"
 )
 
 func main() {
-	var value = &struct {
-		Field optional.String `json:"field,omitempty"`
-	}{}
+    var value = &struct {
+        Field optional.Optional[string] `json:"field,omitempty"`
+    }{}
 
-	_ = json.Unmarshal([]byte(`{"field":"bar"}`), value)
+    _ = json.Unmarshal([]byte(`{"field":"bar"}`), value)
 
-	value.Field.If(func(s string) {
-		fmt.Println(s)
-	})
-	// outputs: bar
+    value.Field.If(func(s string) {
+        fmt.Println(s)
+    })
+    // outputs: bar
 }
 ```
 
 See [example_test.go](example_test.go) for more examples.
-
-## Test Coverage
-
-As you can see test coverage is a bit lacking for the library. This is simply because testing generated code is not super easy. I'm currently working on improving test coverage for the generated types, but in the meantime checkout [string_test.go](string_test.go) and [int_test.go](int_test.go) for examples.
-
-Also checkout:
-
-* [example_test.go](example_test.go) for example usage.
-* [cmd/optional/golden_test.go](cmd/optional/golden_test.go) for [golden file](https://medium.com/soon-london/testing-with-golden-files-in-go-7fccc71c43d3) based testing of the generator itself.
-
-### Golden Files
-
-If changing the API you may need to update the [golden files](https://medium.com/soon-london/testing-with-golden-files-in-go-7fccc71c43d3) for your tests to pass by running:
-
-`go test ./cmd/optional/... -update`.
 
 ## Contributing
 

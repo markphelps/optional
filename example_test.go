@@ -1,3 +1,6 @@
+//go:build 1.18
+// +build 1.18
+
 package optional_test
 
 import (
@@ -8,10 +11,10 @@ import (
 )
 
 func Example_get() {
-	values := []optional.String{
-		optional.NewString("foo"),
-		optional.NewString(""),
-		optional.NewString("bar"),
+	values := []optional.Optional[string]{
+		optional.New("foo"),
+		optional.New(""),
+		optional.New("bar"),
 		{},
 	}
 
@@ -32,10 +35,10 @@ func Example_get() {
 }
 
 func Example_mustGet() {
-	values := []optional.String{
-		optional.NewString("foo"),
-		optional.NewString(""),
-		optional.NewString("bar"),
+	values := []optional.Optional[string]{
+		optional.New("foo"),
+		optional.New(""),
+		optional.New("bar"),
 		{},
 	}
 
@@ -56,10 +59,10 @@ func Example_mustGet() {
 }
 
 func Example_orElse() {
-	values := []optional.String{
-		optional.NewString("foo"),
-		optional.NewString(""),
-		optional.NewString("bar"),
+	values := []optional.Optional[string]{
+		optional.New("foo"),
+		optional.New(""),
+		optional.New("bar"),
 		{},
 	}
 
@@ -75,10 +78,10 @@ func Example_orElse() {
 }
 
 func Example_if() {
-	values := []optional.String{
-		optional.NewString("foo"),
-		optional.NewString(""),
-		optional.NewString("bar"),
+	values := []optional.Optional[string]{
+		optional.New("foo"),
+		optional.New(""),
+		optional.New("bar"),
 		{},
 	}
 
@@ -102,7 +105,7 @@ func Example_set() {
 			"bar",
 		}
 
-		s = optional.NewString("baz")
+		s = optional.New("baz")
 	)
 
 	for _, v := range values {
@@ -123,14 +126,14 @@ func Example_set() {
 
 func Example_marshalJSON() {
 	type example struct {
-		Field    *optional.String `json:"field,omitempty"`
-		FieldTwo *optional.String `json:"field_two"`
+		Field    *optional.Optional[string] `json:"field,omitempty"`
+		FieldTwo *optional.Optional[string] `json:"field_two"`
 	}
 
-	var values = []optional.String{
-		optional.NewString("foo"),
-		optional.NewString(""),
-		optional.NewString("bar"),
+	var values = []optional.Optional[string]{
+		optional.New("foo"),
+		optional.New(""),
+		optional.New("bar"),
 	}
 
 	for _, v := range values {
@@ -162,8 +165,8 @@ func Example_unmarshalJSON() {
 
 	for _, v := range values {
 		var o = &struct {
-			Field    optional.String `json:"field,omitempty"`
-			FieldTwo optional.String `json:"field_two"`
+			Field    optional.Optional[string] `json:"field,omitempty"`
+			FieldTwo optional.Optional[string] `json:"field_two"`
 		}{}
 
 		if err := json.Unmarshal([]byte(v), o); err != nil {

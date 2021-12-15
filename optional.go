@@ -54,13 +54,21 @@ func (o Optional[T]) OrElse(v T) T {
 	return v
 }
 
-// If calls the function f with the value if the value is present.
+// If calls the function fn with the value if the value is present.
 func (o Optional[T]) If(fn func(T)) {
 	if o.Present() {
 		fn(*o.value)
 	}
 }
 
+// MarshalJSON marshals a type T to JSON if the value is present.
+// Otherwise it returns the result of marshalling the nil value.
+//
+// Note: Types T of channel, complex, and function values cannot be encoded in JSON.
+// Attempting to encode such a value causes Marshal to return
+// a json.UnsupportedTypeError.
+//
+// See: https://github.com/golang/go/blob/129bb1917b4914f0743ec9b4ef0dfb74df39c07d/src/encoding/json/encode.go#L150
 func (o Optional[T]) MarshalJSON() ([]byte, error) {
 	if o.Present() {
 		return json.Marshal(o.value)
@@ -68,6 +76,19 @@ func (o Optional[T]) MarshalJSON() ([]byte, error) {
 	return json.Marshal(nil)
 }
 
+// UnmarshalJSON parses the JSON-encoded data and stores the result
+// in the value pointed to by o.value. If v is nil or not a pointer,
+// Unmarshal returns an InvalidUnmarshalError.
+//
+// Note: If a JSON value is not appropriate for a given target type,
+// or if a JSON number overflows the target type, Unmarshal
+// skips that field and completes the unmarshaling as best it can.
+// If no more serious errors are encountered, Unmarshal returns
+// an UnmarshalTypeError describing the earliest such error. In any
+// case, it's not guaranteed that all the remaining fields following
+// the problematic one will be unmarshaled into the target object.
+//
+// See: https://github.com/golang/go/blob/129bb1917b4914f0743ec9b4ef0dfb74df39c07d/src/encoding/json/decode.go#L78
 func (o *Optional[T]) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
 		o.value = nil

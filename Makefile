@@ -28,19 +28,9 @@ lint: ## Run all the linters
 .PHONY: ci
 ci: lint test ## Run all the tests and code checks
 
-.PHONY: generate
-generate: ## Run go generate
-	@echo "--> Running go generate"
-	go generate
-
-.PHONY: build
-build: ## Build
-	@echo "--> Building ..."
-	go build -o bin/optional ./cmd/optional/main.go
-
 # Absolutely awesome: http://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 .PHONY: help
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-.DEFAULT_GOAL := build
+.DEFAULT_GOAL := help
