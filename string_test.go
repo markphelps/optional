@@ -26,7 +26,6 @@ func TestString_Get_NotPresent(t *testing.T) {
 	assert.Equal(t, zero, v)
 }
 
-
 func TestString_MustGet_Present(t *testing.T) {
 	o := NewString("foo")
 
@@ -35,11 +34,10 @@ func TestString_MustGet_Present(t *testing.T) {
 	assert.Equal(t, "foo", v)
 }
 
-
 func TestString_MustGet_NotPresent(t *testing.T) {
 	o := String{}
 
-	assert.Panics(t, func(){ _ = o.MustGet() })
+	assert.Panics(t, func() { _ = o.MustGet() })
 	assert.False(t, o.Present())
 }
 

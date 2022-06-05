@@ -17,9 +17,9 @@ In Go, variables declared without an explicit initial value are given their zero
 
 ## Inspiration
 
-* Java [Optional](https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html)
-* [https://github.com/leighmcculloch/go-optional](https://github.com/leighmcculloch/go-optional)
-* [https://github.com/golang/go/issues/7054](https://github.com/golang/go/issues/7054)
+- Java [Optional](https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html)
+- [https://github.com/leighmcculloch/go-optional](https://github.com/leighmcculloch/go-optional)
+- [https://github.com/golang/go/issues/7054](https://github.com/golang/go/issues/7054)
 
 ## Tool
 
@@ -55,26 +55,26 @@ and output file is optional_t.go. This can be overridden with the -output flag.
 
 ## Library
 
-* [bool](bool.go)
-* [byte](byte.go)
-* [complex128](complex128.go)
-* [complex64](complex64.go)
-* [float32](float32.go)
-* [float64](float64.go)
-* [int](int.go)
-* [int16](int16.go)
-* [int32](int32.go)
-* [int64](int64.go)
-* [int8](int8.go)
-* [rune](rune.go)
-* [string](string.go)
-* [uint](uint.go)
-* [uint16](uint16.go)
-* [uint32](uint32.go)
-* [uint64](uint64.go)
-* [uint8](uint8.go)
-* [uintptr](uintptr.go)
-* [error](error.go)
+- [bool](bool.go)
+- [byte](byte.go)
+- [complex128](complex128.go)
+- [complex64](complex64.go)
+- [float32](float32.go)
+- [float64](float64.go)
+- [int](int.go)
+- [int16](int16.go)
+- [int32](int32.go)
+- [int64](int64.go)
+- [int8](int8.go)
+- [rune](rune.go)
+- [string](string.go)
+- [uint](uint.go)
+- [uint16](uint16.go)
+- [uint32](uint32.go)
+- [uint64](uint64.go)
+- [uint8](uint8.go)
+- [uintptr](uintptr.go)
+- [error](error.go)
 
 ### Usage
 
@@ -82,23 +82,23 @@ and output file is optional_t.go. This can be overridden with the -output flag.
 package main
 
 import (
-	"fmt"
+    "fmt"
 
-	"github.com/markphelps/optional"
+    "github.com/markphelps/optional"
 )
 
 func main() {
-	s := optional.NewString("foo")
+    s := optional.NewString("foo")
 
-	value, err := s.Get()
-	if err != nil {
-		// handle error!
-	} else {
-		fmt.Println(value)
-	}
+    value, err := s.Get()
+    if err != nil {
+        // handle error!
+    } else {
+        fmt.Println(value)
+    }
 
-	t := optional.String{}
-	fmt.Println(t.OrElse("bar"))
+    t := optional.String{}
+    fmt.Println(t.OrElse("bar"))
 }
 ```
 
@@ -118,21 +118,21 @@ Option types marshal to/from JSON as you would expect:
 package main
 
 import (
-	"encoding/json"
-	"fmt"
+    "encoding/json"
+    "fmt"
 )
 
 func main() {
-	var value = struct {
-		Field optional.String `json:"field,omitempty"`
-	}{
-		Field: optional.NewString("bar"),
-	}
+    var value = struct {
+        Field optional.String `json:"field,omitempty"`
+    }{
+        Field: optional.NewString("bar"),
+    }
 
-	out, _ := json.Marshal(value)
+    out, _ := json.Marshal(value)
 
-	fmt.Println(string(out))
-	// outputs: {"field":"bar"}
+    fmt.Println(string(out))
+    // outputs: {"field":"bar"}
 }
 ```
 
@@ -142,21 +142,21 @@ func main() {
 package main
 
 import (
-	"encoding/json"
-	"fmt"
+    "encoding/json"
+    "fmt"
 )
 
 func main() {
-	var value = &struct {
-		Field optional.String `json:"field,omitempty"`
-	}{}
+    var value = &struct {
+        Field optional.String `json:"field,omitempty"`
+    }{}
 
-	_ = json.Unmarshal([]byte(`{"field":"bar"}`), value)
+    _ = json.Unmarshal([]byte(`{"field":"bar"}`), value)
 
-	value.Field.If(func(s string) {
-		fmt.Println(s)
-	})
-	// outputs: bar
+    value.Field.If(func(s string) {
+        fmt.Println(s)
+    })
+    // outputs: bar
 }
 ```
 
@@ -168,8 +168,8 @@ As you can see test coverage is a bit lacking for the library. This is simply be
 
 Also checkout:
 
-* [example_test.go](example_test.go) for example usage.
-* [cmd/optional/golden_test.go](cmd/optional/golden_test.go) for [golden file](https://medium.com/soon-london/testing-with-golden-files-in-go-7fccc71c43d3) based testing of the generator itself.
+- [example_test.go](example_test.go) for example usage.
+- [cmd/optional/golden_test.go](cmd/optional/golden_test.go) for [golden file](https://medium.com/soon-london/testing-with-golden-files-in-go-7fccc71c43d3) based testing of the generator itself.
 
 ### Golden Files
 
