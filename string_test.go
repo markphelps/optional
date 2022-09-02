@@ -7,6 +7,27 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestString_NewStringFromPointer_NotNil(t *testing.T) {
+	s := "foo"
+	p := &s
+	o := NewStringFromPointer(p)
+
+	v, err := o.Get()
+	assert.True(t, o.Present())
+	assert.NoError(t, err)
+	assert.Equal(t, "foo", v)
+	assert.True(t, p != o.value, "expect return pointer to be different from embedded pointer")
+}
+
+func TestString_NewStringFromPointer_Nil(t *testing.T) {
+	o := NewStringFromPointer(nil)
+
+	v, err := o.Get()
+	assert.False(t, o.Present())
+	assert.Error(t, err)
+	assert.Equal(t, "", v)
+}
+
 func TestString_Get_Present(t *testing.T) {
 	o := NewString("foo")
 
@@ -77,6 +98,22 @@ func TestString_If_NotPresent(t *testing.T) {
 	})
 	assert.False(t, o.Present())
 	assert.False(t, canary)
+}
+
+func TestString_ToPointer_NotNil(t *testing.T) {
+	o := NewString("foo")
+
+	p := o.ToPointer()
+	assert.NotNil(t, p)
+	assert.Equal(t, "foo", *p)
+	assert.True(t, p != o.value, "expect return pointer to be different from embedded pointer")
+}
+
+func TestString_ToPointer_Nil(t *testing.T) {
+	o := String{}
+
+	p := o.ToPointer()
+	assert.Nil(t, p)
 }
 
 func TestString_MarshalJSON(t *testing.T) {
