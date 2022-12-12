@@ -6,6 +6,7 @@ package optional
 import (
 	"encoding/json"
 	"errors"
+	"strings"
 )
 
 // String is an optional string.
@@ -57,6 +58,13 @@ func (s String) OrElse(v string) string {
 func (s String) If(fn func(string)) {
 	if s.Present() {
 		fn(*s.value)
+	}
+}
+
+// Trim the whitespace from the string value if the value is present.
+func (s String) Trim() {
+	if s.Present() {
+		*s.value = strings.TrimSpace(*s.value)
 	}
 }
 
