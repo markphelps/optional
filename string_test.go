@@ -79,6 +79,35 @@ func TestString_If_NotPresent(t *testing.T) {
 	assert.False(t, canary)
 }
 
+func TestString_Trim(t *testing.T) {
+	o := String{}
+	o.Trim()
+
+	o.Set(" This is a string! ")
+	o.Trim()
+	assert.Equal(t, NewString("This is a string!"), o)
+
+	o.Set("       _sTrInG123- ")
+	o.Trim()
+	assert.Equal(t, "_sTrInG123-", o.MustGet())
+
+	o.Set(" @optional:         ")
+	o.Trim()
+	assert.Equal(t, "@optional:", o.MustGet())
+
+	o.Set("                   ")
+	o.Trim()
+	assert.Equal(t, "", o.MustGet())
+
+	o.Set("")
+	o.Trim()
+	assert.Equal(t, "", o.MustGet())
+
+	o.Set("a")
+	o.Trim()
+	assert.Equal(t, "a", o.MustGet())
+}
+
 func TestString_MarshalJSON(t *testing.T) {
 	type fields struct {
 		WithValue     String
