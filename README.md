@@ -32,8 +32,15 @@ In Go, variables declared without an explicit initial value are given their zero
 Typically this process would be run using go generate, like this:
 
 ```go
+import _ "github.com/markphelps/optional
+
 //go:generate optional -type=Foo
+type Foo struct {
+  ...
+}
 ```
+
+🗒️ **Note**: the blank import is necessary to prevent `go mod tidy` from removing this library as a dependency if you are only using it to generate your own types.
 
 running this command:
 
