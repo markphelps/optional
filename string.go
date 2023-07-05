@@ -17,8 +17,8 @@ func NewString(v string) String {
 	return String{&v}
 }
 
-// NewStringFromPointer creates an optional.String from a string pointer.
-func NewStringFromPointer(v *string) String {
+// NewStringFromPtr creates an optional.String from a string pointer.
+func NewStringFromPtr(v *string) String {
 	if v == nil {
 		return String{}
 	}
@@ -30,8 +30,8 @@ func (s *String) Set(v string) {
 	s.value = &v
 }
 
-// ToPointer returns a *string of the value or nil if not present.
-func (s String) ToPointer() *string {
+// ToPtr returns a *string of the value or nil if not present.
+func (s String) ToPtr() *string {
 	if !s.Present() {
 		return nil
 	}

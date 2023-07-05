@@ -17,8 +17,8 @@ func NewUintptr(v uintptr) Uintptr {
 	return Uintptr{&v}
 }
 
-// NewUintptrFromPointer creates an optional.Uintptr from a uintptr pointer.
-func NewUintptrFromPointer(v *uintptr) Uintptr {
+// NewUintptrFromPtr creates an optional.Uintptr from a uintptr pointer.
+func NewUintptrFromPtr(v *uintptr) Uintptr {
 	if v == nil {
 		return Uintptr{}
 	}
@@ -30,8 +30,8 @@ func (u *Uintptr) Set(v uintptr) {
 	u.value = &v
 }
 
-// ToPointer returns a *uintptr of the value or nil if not present.
-func (u Uintptr) ToPointer() *uintptr {
+// ToPtr returns a *uintptr of the value or nil if not present.
+func (u Uintptr) ToPtr() *uintptr {
 	if !u.Present() {
 		return nil
 	}

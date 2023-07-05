@@ -7,10 +7,10 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestInt_NewIntFromPointer_NotNil(t *testing.T) {
+func TestInt_NewIntFromPtr_NotNil(t *testing.T) {
 	i := 42
 	p := &i
-	o := NewIntFromPointer(p)
+	o := NewIntFromPtr(p)
 
 	v, err := o.Get()
 	assert.True(t, o.Present())
@@ -19,8 +19,8 @@ func TestInt_NewIntFromPointer_NotNil(t *testing.T) {
 	assert.True(t, p != o.value, "expect return pointer to be different from embedded pointer")
 }
 
-func TestInt_NewIntFromPointer_Nil(t *testing.T) {
-	o := NewIntFromPointer(nil)
+func TestInt_NewIntFromPtr_Nil(t *testing.T) {
+	o := NewIntFromPtr(nil)
 	var zero int
 
 	v, err := o.Get()

@@ -17,8 +17,8 @@ func NewUint(v uint) Uint {
 	return Uint{&v}
 }
 
-// NewUintFromPointer creates an optional.Uint from a uint pointer.
-func NewUintFromPointer(v *uint) Uint {
+// NewUintFromPtr creates an optional.Uint from a uint pointer.
+func NewUintFromPtr(v *uint) Uint {
 	if v == nil {
 		return Uint{}
 	}
@@ -30,8 +30,8 @@ func (u *Uint) Set(v uint) {
 	u.value = &v
 }
 
-// ToPointer returns a *uint of the value or nil if not present.
-func (u Uint) ToPointer() *uint {
+// ToPtr returns a *uint of the value or nil if not present.
+func (u Uint) ToPtr() *uint {
 	if !u.Present() {
 		return nil
 	}

@@ -17,8 +17,8 @@ func NewInt64(v int64) Int64 {
 	return Int64{&v}
 }
 
-// NewInt64FromPointer creates an optional.Int64 from a int64 pointer.
-func NewInt64FromPointer(v *int64) Int64 {
+// NewInt64FromPtr creates an optional.Int64 from a int64 pointer.
+func NewInt64FromPtr(v *int64) Int64 {
 	if v == nil {
 		return Int64{}
 	}
@@ -30,8 +30,8 @@ func (i *Int64) Set(v int64) {
 	i.value = &v
 }
 
-// ToPointer returns a *int64 of the value or nil if not present.
-func (i Int64) ToPointer() *int64 {
+// ToPtr returns a *int64 of the value or nil if not present.
+func (i Int64) ToPtr() *int64 {
 	if !i.Present() {
 		return nil
 	}

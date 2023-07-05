@@ -7,10 +7,10 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestString_NewStringFromPointer_NotNil(t *testing.T) {
+func TestString_NewStringFromPtr_NotNil(t *testing.T) {
 	s := "foo"
 	p := &s
-	o := NewStringFromPointer(p)
+	o := NewStringFromPtr(p)
 
 	v, err := o.Get()
 	assert.True(t, o.Present())
@@ -19,8 +19,8 @@ func TestString_NewStringFromPointer_NotNil(t *testing.T) {
 	assert.True(t, p != o.value, "expect return pointer to be different from embedded pointer")
 }
 
-func TestString_NewStringFromPointer_Nil(t *testing.T) {
-	o := NewStringFromPointer(nil)
+func TestString_NewStringFromPtr_Nil(t *testing.T) {
+	o := NewStringFromPtr(nil)
 
 	v, err := o.Get()
 	assert.False(t, o.Present())
@@ -100,19 +100,19 @@ func TestString_If_NotPresent(t *testing.T) {
 	assert.False(t, canary)
 }
 
-func TestString_ToPointer_NotNil(t *testing.T) {
+func TestString_ToPtr_NotNil(t *testing.T) {
 	o := NewString("foo")
 
-	p := o.ToPointer()
+	p := o.ToPtr()
 	assert.NotNil(t, p)
 	assert.Equal(t, "foo", *p)
 	assert.True(t, p != o.value, "expect return pointer to be different from embedded pointer")
 }
 
-func TestString_ToPointer_Nil(t *testing.T) {
+func TestString_ToPtr_Nil(t *testing.T) {
 	o := String{}
 
-	p := o.ToPointer()
+	p := o.ToPtr()
 	assert.Nil(t, p)
 }
 

@@ -16,8 +16,8 @@ func NewComplex64(v complex64) Complex64 {
 	return Complex64{&v}
 }
 
-// NewComplex64FromPointer creates an optional.Complex64 from a complex64 pointer.
-func NewComplex64FromPointer(v *complex64) Complex64 {
+// NewComplex64FromPtr creates an optional.Complex64 from a complex64 pointer.
+func NewComplex64FromPtr(v *complex64) Complex64 {
 	if v == nil {
 		return Complex64{}
 	}
@@ -29,8 +29,8 @@ func (c *Complex64) Set(v complex64) {
 	c.value = &v
 }
 
-// ToPointer returns a *complex64 of the value or nil if not present.
-func (c Complex64) ToPointer() *complex64 {
+// ToPtr returns a *complex64 of the value or nil if not present.
+func (c Complex64) ToPtr() *complex64 {
 	if !c.Present() {
 		return nil
 	}

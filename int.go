@@ -17,8 +17,8 @@ func NewInt(v int) Int {
 	return Int{&v}
 }
 
-// NewIntFromPointer creates an optional.Int from a int pointer.
-func NewIntFromPointer(v *int) Int {
+// NewIntFromPtr creates an optional.Int from a int pointer.
+func NewIntFromPtr(v *int) Int {
 	if v == nil {
 		return Int{}
 	}
@@ -30,8 +30,8 @@ func (i *Int) Set(v int) {
 	i.value = &v
 }
 
-// ToPointer returns a *int of the value or nil if not present.
-func (i Int) ToPointer() *int {
+// ToPtr returns a *int of the value or nil if not present.
+func (i Int) ToPtr() *int {
 	if !i.Present() {
 		return nil
 	}

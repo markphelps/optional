@@ -17,8 +17,8 @@ func NewByte(v byte) Byte {
 	return Byte{&v}
 }
 
-// NewByteFromPointer creates an optional.Byte from a byte pointer.
-func NewByteFromPointer(v *byte) Byte {
+// NewByteFromPtr creates an optional.Byte from a byte pointer.
+func NewByteFromPtr(v *byte) Byte {
 	if v == nil {
 		return Byte{}
 	}
@@ -30,8 +30,8 @@ func (b *Byte) Set(v byte) {
 	b.value = &v
 }
 
-// ToPointer returns a *byte of the value or nil if not present.
-func (b Byte) ToPointer() *byte {
+// ToPtr returns a *byte of the value or nil if not present.
+func (b Byte) ToPtr() *byte {
 	if !b.Present() {
 		return nil
 	}

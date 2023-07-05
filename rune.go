@@ -17,8 +17,8 @@ func NewRune(v rune) Rune {
 	return Rune{&v}
 }
 
-// NewRuneFromPointer creates an optional.Rune from a rune pointer.
-func NewRuneFromPointer(v *rune) Rune {
+// NewRuneFromPtr creates an optional.Rune from a rune pointer.
+func NewRuneFromPtr(v *rune) Rune {
 	if v == nil {
 		return Rune{}
 	}
@@ -30,8 +30,8 @@ func (r *Rune) Set(v rune) {
 	r.value = &v
 }
 
-// ToPointer returns a *rune of the value or nil if not present.
-func (r Rune) ToPointer() *rune {
+// ToPtr returns a *rune of the value or nil if not present.
+func (r Rune) ToPtr() *rune {
 	if !r.Present() {
 		return nil
 	}

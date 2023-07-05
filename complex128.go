@@ -16,8 +16,8 @@ func NewComplex128(v complex128) Complex128 {
 	return Complex128{&v}
 }
 
-// NewComplex128FromPointer creates an optional.Complex128 from a complex128 pointer.
-func NewComplex128FromPointer(v *complex128) Complex128 {
+// NewComplex128FromPtr creates an optional.Complex128 from a complex128 pointer.
+func NewComplex128FromPtr(v *complex128) Complex128 {
 	if v == nil {
 		return Complex128{}
 	}
@@ -29,8 +29,8 @@ func (c *Complex128) Set(v complex128) {
 	c.value = &v
 }
 
-// ToPointer returns a *complex128 of the value or nil if not present.
-func (c Complex128) ToPointer() *complex128 {
+// ToPtr returns a *complex128 of the value or nil if not present.
+func (c Complex128) ToPtr() *complex128 {
 	if !c.Present() {
 		return nil
 	}

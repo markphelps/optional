@@ -17,8 +17,8 @@ func NewInt8(v int8) Int8 {
 	return Int8{&v}
 }
 
-// NewInt8FromPointer creates an optional.Int8 from a int8 pointer.
-func NewInt8FromPointer(v *int8) Int8 {
+// NewInt8FromPtr creates an optional.Int8 from a int8 pointer.
+func NewInt8FromPtr(v *int8) Int8 {
 	if v == nil {
 		return Int8{}
 	}
@@ -30,8 +30,8 @@ func (i *Int8) Set(v int8) {
 	i.value = &v
 }
 
-// ToPointer returns a *int8 of the value or nil if not present.
-func (i Int8) ToPointer() *int8 {
+// ToPtr returns a *int8 of the value or nil if not present.
+func (i Int8) ToPtr() *int8 {
 	if !i.Present() {
 		return nil
 	}

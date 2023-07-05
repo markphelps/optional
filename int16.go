@@ -17,8 +17,8 @@ func NewInt16(v int16) Int16 {
 	return Int16{&v}
 }
 
-// NewInt16FromPointer creates an optional.Int16 from a int16 pointer.
-func NewInt16FromPointer(v *int16) Int16 {
+// NewInt16FromPtr creates an optional.Int16 from a int16 pointer.
+func NewInt16FromPtr(v *int16) Int16 {
 	if v == nil {
 		return Int16{}
 	}
@@ -30,8 +30,8 @@ func (i *Int16) Set(v int16) {
 	i.value = &v
 }
 
-// ToPointer returns a *int16 of the value or nil if not present.
-func (i Int16) ToPointer() *int16 {
+// ToPtr returns a *int16 of the value or nil if not present.
+func (i Int16) ToPtr() *int16 {
 	if !i.Present() {
 		return nil
 	}

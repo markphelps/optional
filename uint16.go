@@ -17,8 +17,8 @@ func NewUint16(v uint16) Uint16 {
 	return Uint16{&v}
 }
 
-// NewUint16FromPointer creates an optional.Uint16 from a uint16 pointer.
-func NewUint16FromPointer(v *uint16) Uint16 {
+// NewUint16FromPtr creates an optional.Uint16 from a uint16 pointer.
+func NewUint16FromPtr(v *uint16) Uint16 {
 	if v == nil {
 		return Uint16{}
 	}
@@ -30,8 +30,8 @@ func (u *Uint16) Set(v uint16) {
 	u.value = &v
 }
 
-// ToPointer returns a *uint16 of the value or nil if not present.
-func (u Uint16) ToPointer() *uint16 {
+// ToPtr returns a *uint16 of the value or nil if not present.
+func (u Uint16) ToPtr() *uint16 {
 	if !u.Present() {
 		return nil
 	}

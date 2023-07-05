@@ -146,8 +146,8 @@ func New{{ .OutputName }}(v {{ .TypeName }}) {{ .OutputName }} {
 	return {{ .OutputName }}{&v}
 }
 
-// New{{ .OutputName }}FromPointer creates an optional.{{ .OutputName }} from a {{ .TypeName }} pointer.
-func New{{ .OutputName }}FromPointer(v *{{ .TypeName }}) {{ .OutputName }} {
+// New{{ .OutputName }}FromPtr creates an optional.{{ .OutputName }} from a {{ .TypeName }} pointer.
+func New{{ .OutputName }}FromPtr(v *{{ .TypeName }}) {{ .OutputName }} {
 	if v == nil {
 		return {{ .OutputName }}{}
 	}
@@ -159,8 +159,8 @@ func ({{ .VariableName }} *{{ .OutputName }}) Set(v {{ .TypeName }}) {
 	{{ .VariableName }}.value = &v
 }
 
-// ToPointer returns a *{{ .TypeName }} of the value or nil if not present.
-func ({{ .VariableName }} {{ .OutputName }}) ToPointer() *{{ .TypeName }} {
+// ToPtr returns a *{{ .TypeName }} of the value or nil if not present.
+func ({{ .VariableName }} {{ .OutputName }}) ToPtr() *{{ .TypeName }} {
 	if !{{ .VariableName }}.Present() {
 		return nil
 	}

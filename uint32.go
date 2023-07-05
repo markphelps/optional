@@ -17,8 +17,8 @@ func NewUint32(v uint32) Uint32 {
 	return Uint32{&v}
 }
 
-// NewUint32FromPointer creates an optional.Uint32 from a uint32 pointer.
-func NewUint32FromPointer(v *uint32) Uint32 {
+// NewUint32FromPtr creates an optional.Uint32 from a uint32 pointer.
+func NewUint32FromPtr(v *uint32) Uint32 {
 	if v == nil {
 		return Uint32{}
 	}
@@ -30,8 +30,8 @@ func (u *Uint32) Set(v uint32) {
 	u.value = &v
 }
 
-// ToPointer returns a *uint32 of the value or nil if not present.
-func (u Uint32) ToPointer() *uint32 {
+// ToPtr returns a *uint32 of the value or nil if not present.
+func (u Uint32) ToPtr() *uint32 {
 	if !u.Present() {
 		return nil
 	}

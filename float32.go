@@ -17,8 +17,8 @@ func NewFloat32(v float32) Float32 {
 	return Float32{&v}
 }
 
-// NewFloat32FromPointer creates an optional.Float32 from a float32 pointer.
-func NewFloat32FromPointer(v *float32) Float32 {
+// NewFloat32FromPtr creates an optional.Float32 from a float32 pointer.
+func NewFloat32FromPtr(v *float32) Float32 {
 	if v == nil {
 		return Float32{}
 	}
@@ -30,8 +30,8 @@ func (f *Float32) Set(v float32) {
 	f.value = &v
 }
 
-// ToPointer returns a *float32 of the value or nil if not present.
-func (f Float32) ToPointer() *float32 {
+// ToPtr returns a *float32 of the value or nil if not present.
+func (f Float32) ToPtr() *float32 {
 	if !f.Present() {
 		return nil
 	}

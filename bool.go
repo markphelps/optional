@@ -17,8 +17,8 @@ func NewBool(v bool) Bool {
 	return Bool{&v}
 }
 
-// NewBoolFromPointer creates an optional.Bool from a bool pointer.
-func NewBoolFromPointer(v *bool) Bool {
+// NewBoolFromPtr creates an optional.Bool from a bool pointer.
+func NewBoolFromPtr(v *bool) Bool {
 	if v == nil {
 		return Bool{}
 	}
@@ -30,8 +30,8 @@ func (b *Bool) Set(v bool) {
 	b.value = &v
 }
 
-// ToPointer returns a *bool of the value or nil if not present.
-func (b Bool) ToPointer() *bool {
+// ToPtr returns a *bool of the value or nil if not present.
+func (b Bool) ToPtr() *bool {
 	if !b.Present() {
 		return nil
 	}

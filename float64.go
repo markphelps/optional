@@ -17,8 +17,8 @@ func NewFloat64(v float64) Float64 {
 	return Float64{&v}
 }
 
-// NewFloat64FromPointer creates an optional.Float64 from a float64 pointer.
-func NewFloat64FromPointer(v *float64) Float64 {
+// NewFloat64FromPtr creates an optional.Float64 from a float64 pointer.
+func NewFloat64FromPtr(v *float64) Float64 {
 	if v == nil {
 		return Float64{}
 	}
@@ -30,8 +30,8 @@ func (f *Float64) Set(v float64) {
 	f.value = &v
 }
 
-// ToPointer returns a *float64 of the value or nil if not present.
-func (f Float64) ToPointer() *float64 {
+// ToPtr returns a *float64 of the value or nil if not present.
+func (f Float64) ToPtr() *float64 {
 	if !f.Present() {
 		return nil
 	}

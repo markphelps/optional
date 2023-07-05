@@ -17,8 +17,8 @@ func NewError(v error) Error {
 	return Error{&v}
 }
 
-// NewErrorFromPointer creates an optional.Error from a error pointer.
-func NewErrorFromPointer(v *error) Error {
+// NewErrorFromPtr creates an optional.Error from a error pointer.
+func NewErrorFromPtr(v *error) Error {
 	if v == nil {
 		return Error{}
 	}
@@ -30,8 +30,8 @@ func (e *Error) Set(v error) {
 	e.value = &v
 }
 
-// ToPointer returns a *error of the value or nil if not present.
-func (e Error) ToPointer() *error {
+// ToPtr returns a *error of the value or nil if not present.
+func (e Error) ToPtr() *error {
 	if !e.Present() {
 		return nil
 	}

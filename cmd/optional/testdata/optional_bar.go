@@ -17,8 +17,8 @@ func NewoptionalBar(v bar) optionalBar {
 	return optionalBar{&v}
 }
 
-// NewoptionalBarFromPointer creates an optional.optionalBar from a bar pointer.
-func NewoptionalBarFromPointer(v *bar) optionalBar {
+// NewoptionalBarFromPtr creates an optional.optionalBar from a bar pointer.
+func NewoptionalBarFromPtr(v *bar) optionalBar {
 	if v == nil {
 		return optionalBar{}
 	}
@@ -30,8 +30,8 @@ func (o *optionalBar) Set(v bar) {
 	o.value = &v
 }
 
-// ToPointer returns a *bar of the value or nil if not present.
-func (o optionalBar) ToPointer() *bar {
+// ToPtr returns a *bar of the value or nil if not present.
+func (o optionalBar) ToPtr() *bar {
 	if !o.Present() {
 		return nil
 	}
