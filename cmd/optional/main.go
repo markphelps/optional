@@ -146,9 +146,26 @@ func New{{ .OutputName }}(v {{ .TypeName }}) {{ .OutputName }} {
 	return {{ .OutputName }}{&v}
 }
 
+// New{{ .OutputName }}FromPtr creates an optional.{{ .OutputName }} from a {{ .TypeName }} pointer.
+func New{{ .OutputName }}FromPtr(v *{{ .TypeName }}) {{ .OutputName }} {
+	if v == nil {
+		return {{ .OutputName }}{}
+	}
+	return New{{ .OutputName }}(*v)
+}
+
 // Set sets the {{ .TypeName }} value.
 func ({{ .VariableName }} *{{ .OutputName }}) Set(v {{ .TypeName }}) {
 	{{ .VariableName }}.value = &v
+}
+
+// ToPtr returns a *{{ .TypeName }} of the value or nil if not present.
+func ({{ .VariableName }} {{ .OutputName }}) ToPtr() *{{ .TypeName }} {
+	if !{{ .VariableName }}.Present() {
+		return nil
+	}
+	v := *{{ .VariableName }}.value
+	return &v
 }
 
 // Get returns the {{ .TypeName }} value or an error if not present.

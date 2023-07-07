@@ -17,9 +17,26 @@ func NewOptionalFoo(v Foo) OptionalFoo {
 	return OptionalFoo{&v}
 }
 
+// NewOptionalFooFromPtr creates an optional.OptionalFoo from a Foo pointer.
+func NewOptionalFooFromPtr(v *Foo) OptionalFoo {
+	if v == nil {
+		return OptionalFoo{}
+	}
+	return NewOptionalFoo(*v)
+}
+
 // Set sets the Foo value.
 func (o *OptionalFoo) Set(v Foo) {
 	o.value = &v
+}
+
+// ToPtr returns a *Foo of the value or nil if not present.
+func (o OptionalFoo) ToPtr() *Foo {
+	if !o.Present() {
+		return nil
+	}
+	v := *o.value
+	return &v
 }
 
 // Get returns the Foo value or an error if not present.

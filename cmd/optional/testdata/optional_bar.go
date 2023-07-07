@@ -17,9 +17,26 @@ func NewoptionalBar(v bar) optionalBar {
 	return optionalBar{&v}
 }
 
+// NewoptionalBarFromPtr creates an optional.optionalBar from a bar pointer.
+func NewoptionalBarFromPtr(v *bar) optionalBar {
+	if v == nil {
+		return optionalBar{}
+	}
+	return NewoptionalBar(*v)
+}
+
 // Set sets the bar value.
 func (o *optionalBar) Set(v bar) {
 	o.value = &v
+}
+
+// ToPtr returns a *bar of the value or nil if not present.
+func (o optionalBar) ToPtr() *bar {
+	if !o.Present() {
+		return nil
+	}
+	v := *o.value
+	return &v
 }
 
 // Get returns the bar value or an error if not present.
