@@ -17,7 +17,6 @@
 //
 // The default type is OptionalT or optionalT (depending on if the type is exported)
 // and output file is optional_t.go. This can be overridden with the -output flag.
-//
 package main
 
 import (

@@ -12,20 +12,16 @@ run:
 
 linters:
   enable:
-    - deadcode
     - errcheck
     - goconst
     - gofmt
     - goimports
-    - golint
     - gosimple
-    - govet
     - ineffassign
     - megacheck
     - misspell
     - staticcheck
-    - structcheck
-    - varcheck
+    - unused
   disable-all: true
 
 issues:
