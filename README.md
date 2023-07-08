@@ -1,6 +1,6 @@
 # Optional
 
-[![Build Status](https://travis-ci.org/markphelps/optional.svg?branch=master)](https://travis-ci.org/markphelps/optional)
+[![CI](https://github.com/markphelps/optional/actions/workflows/go.yml/badge.svg)](https://github.com/markphelps/optional/actions/workflows/go.yml)
 [![Release](https://img.shields.io/github/release/markphelps/optional.svg?style=flat-square)](https://github.com/markphelps/optional/releases/latest)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Go Doc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](http://godoc.org/github.com/markphelps/optional)
@@ -188,6 +188,16 @@ If changing the API you may need to update the [golden files](https://medium.com
 
 1. [Fork it](https://github.com/markphelps/optional/fork)
 1. Create your feature branch (`git checkout -b my-new-feature`)
-1. Commit your changes (`git commit -am 'Add some feature'`)
+1. Commit your changes (`git commit -am 'feat: Add some feature'`)
 1. Push to the branch (`git push origin my-new-feature`)
 1. Create a new Pull Request
+
+### Conventional Commits
+
+Optional uses [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) for commit messages. This allows us to automatically generate changelogs and releases.
+
+To help with this, we use [pre-commit](https://pre-commit.com/) to automatically lint commit messages. To install pre-commit, run:
+
+`pip install pre-commit` or `brew install pre-commit` (if you're on a Mac)
+
+Then run `pre-commit install` to install the git hook.
